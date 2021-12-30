@@ -94,15 +94,18 @@ let getRecipeById = async (req, res) => {
     try {
         await searchService.getRecipeById(req.body.recipeId).then(async (rows) => {
             let info = JSON.stringify(rows);
+          //  console.log(info);
+            let recInfo = JSON.parse(info);
             let recipeInfo = {
-                id: info[0].id,
-                name: info[0].name,
-                description: info[0].description,
-                ing: info[0].ingredient_raw_str,
-                serving: info[0].serving,
-                size: info[0].serving_size,
-                steps: info[0].steps,
+                id: recInfo[0].id,
+                name: recInfo[0].name,
+                description: recInfo[0].description,
+                ing: recInfo[0].ingredients_raw_str,
+                serving: recInfo[0].servings,
+                size: recInfo[0].serving_size,
+                steps: recInfo[0].steps,
             }
+           // console.log(recipeInfo);
             req.flash(recipeInfo);
             return res.redirect("/recipePage");
         });
