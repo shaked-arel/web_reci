@@ -183,8 +183,8 @@ let getRecipeById = (idrec) => {
     });
 };
 
-let setRate = (idrec) => {
-    const updateRate = "SELECT * FROM recipe WHERE( id ="+idrec+")";
+let setRate = (iduser, idrec, rate) => {
+    const updateRate = "INSERT INTO rate_by_user VALUES("+iduser+", "+idrec+", "+rate+") ON DUPLICATE KEY UPDATE rate="+rate;
     console.log(updateRate);
     return new Promise((resolve, reject) => {
         try {

@@ -87,11 +87,23 @@ let findTop10 = async (req, res) => {
     }
 }
 
+let idrec;
+
 let getRecipeById = async (req, res) => {
-    console.log(req.body.recipeId);
+    idrec=req.body.recipeId;
     try {
         await searchService.getRecipeById(req.body.recipeId).then(async (rows) => {
-            req.flash(JSON.stringify(rows));
+            let info = JSON.stringify(rows);
+            let recipeInfo = {
+                id: info[0].id,
+                name: info[0].name,
+                description: info[0].description,
+                ing: info[0].ingredient_raw_str,
+                serving: info[0].serving,
+                size: info[0].serving_size,
+                steps: info[0].steps,
+            }
+            req.flash(recipeInfo);
             return res.redirect("/recipePage");
         });
     } catch (err) {
@@ -102,8 +114,9 @@ let getRecipeById = async (req, res) => {
 
 let setRate= async (req, res) => {
     console.log(req.body.rate);
+    console.log(req.user.iduser)
     try {
-        await searchService.setRate(req.body.rate).then(async (rows) => {
+        await searchService.setRate(req.user.iduser,idrec,req.body.rate).then(async (rows) => {
             req.flash(JSON.stringify(rows));
             return res.redirect("/recipePage");
         });
