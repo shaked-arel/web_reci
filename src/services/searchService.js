@@ -225,6 +225,27 @@ let getRecipeRate = (idrec) => {
     });
 };
 
+let deleteRate = (iduser,idrec) => {
+    const delRate = "DELETE FROM rate_by_user WHERE(idrecipe="+idrec+" AND iduser="+iduser+")";
+    console.log(delRate);
+    return new Promise((resolve, reject) => {
+        try {
+            DBConnection.query(
+                delRate,
+                function (err, rows) {
+                    if (err) {
+                        console.log(" in error")
+                        reject(err)
+                    }
+                    resolve(JSON.stringify(rows));
+                }
+            );
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
 
 module.exports = {
     findRecipeByName: findRecipeByName,
@@ -236,4 +257,5 @@ module.exports = {
     getRecipeById: getRecipeById,
     setRate: setRate,
     getRecipeRate: getRecipeRate,
+    deleteRate: deleteRate,
 };

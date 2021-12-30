@@ -134,6 +134,20 @@ let setRate= async (req, res) => {
     }
 }
 
+let deleteRate= async (req, res) => {
+    //console.log(req.body.rate);
+    console.log(req.user.iduser)
+    try {
+        await searchService.setRate(req.user.iduser,idrec).then(async (rows) => {
+            req.flash(JSON.stringify(rows));
+            return res.redirect("/recipePage");
+        });
+    } catch (err) {
+        req.flash("errors", err);
+        return res.redirect("/login");
+    }
+}
+
 module.exports = {
     findRecipeByName: findRecipeByName,
     findRecipeByIngredients: findRecipeByIngredients,
@@ -143,4 +157,5 @@ module.exports = {
     findTop10: findTop10,
     getRecipeById: getRecipeById,
     setRate: setRate,
+    deleteRate: deleteRate,
 };
