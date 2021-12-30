@@ -191,38 +191,38 @@ function openSlider() {
     }
     document.getElementById(selectedValue).style.display = "block";
 }
+
 document.getElementById("User").addEventListener("load", showUser(user.name));
 
-function showUser(name){
-alert("hiiiii");
-    if(name.equal("underfind")){
-        document.getElementsByClassName("true").style.display="none";
-        document.getElementsByClassName("false").style.display="block";
-    }
-    else{
-        document.getElementsByClassName("false").style.display="none";
-        document.getElementsByClassName("true").style.display="block";
+function showUser(name) {
+    alert("hiiiii");
+    if (name.equal("underfind")) {
+        document.getElementsByClassName("true").style.display = "none";
+        document.getElementsByClassName("false").style.display = "block";
+    } else {
+        document.getElementsByClassName("false").style.display = "none";
+        document.getElementsByClassName("true").style.display = "block";
     }
 }
 
-function showTable(){
-    let list = document.getElementById('result').contentDocument.firstChild.textContent;
-    if(list) {
+
+function showTableF() {
+    let list = document.getElementById('resultF').contentDocument.firstChild.textContent;
+    if (list) {
         let json = JSON.parse(list)
 
-        let container = document.getElementById('container')
+        let container = document.getElementById('containerF')
         container.innerHTML = ""
 
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
-        if(json[0].time == "Invalid file, please input csv files!"){
+        if (json[0].id == "") {
             let tr = document.createElement('tr')
             let td = document.createElement('td')
-            td.textContent = json[0].time
+            td.textContent = json[0].id
             tr.appendChild(td);
             tbody.appendChild(tr)
-        }
-        else {
+        } else {
             let tr = document.createElement('tr')
             let td1 = document.createElement('td')
             td1.textContent = "Id"
@@ -233,20 +233,30 @@ function showTable(){
             tr.appendChild(td2)
 
             tbody.appendChild(tr)
-            if(json[0].id != ""){
+            if (json[0].id != "") {
                 for (let i = 0; i < json.length; i++) {
                     let arr = [json[i].id, json[i].name]
                     let tr = document.createElement('tr')
                     for (let j = 0; j < arr.length; j++) {
                         let td = document.createElement('td')
-                        td.textContent = arr[j]
-                        tr.appendChild(td)
+                        var p = document.createElement('p');
+                      //  p.id = "hyper";
+                        p.textContent = arr[j];
+                        /*btn.type= "button";
+                        btn.className="btn";
+                        btn.value=arr[j];
+                        btn.onclick=alert("hiii");*/
+                        td.appendChild(p);
+                        // td.textContent=arr[j];
+                        tr.appendChild(td);
                     }
+                    let td = document.createElement('td')
                     tbody.appendChild(tr)
                 }
             }
         }
         table.appendChild(tbody)
+        table.id = "table";
         container.appendChild(table)
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
@@ -256,39 +266,72 @@ function showTable(){
 
 }
 
-let mountains = [
-    { name: "Monte Falco", height: 1658, place: "Parco Foreste Casentinesi" },
-    { name: "Monte Falterona", height: 1654, place: "Parco Foreste Casentinesi" },
-    { name: "Poggio Scali", height: 1520, place: "Parco Foreste Casentinesi" },
-    { name: "Pratomagno", height: 1592, place: "Parco Foreste Casentinesi" },
-    { name: "Monte Amiata", height: 1738, place: "Siena" }
-];
+function showTable() {
+    let list = document.getElementById('result').contentDocument.firstChild.textContent;
+    if (list) {
+        let json = JSON.parse(list)
 
-function generateTableHead(table, data) {
-    console.log("in generate table head");
-    let thead = table.createTHead();
-    let row = thead.insertRow();
-    for (let key of data) {
-        let th = document.createElement("th");
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th);
-    }
-}
+        let container = document.getElementById('container')
+        container.innerHTML = ""
 
-function generateTable(table, data) {
-    for (let element of data) {
-        let row = table.insertRow();
-        for (key in element) {
-            let cell = row.insertCell();
-            let text = document.createTextNode(element[key]);
-            cell.appendChild(text);
+        let table = document.createElement('table')
+        let tbody = document.createElement('tbody')
+        if (json[0].id == "") {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = json[0].id
+            tr.appendChild(td);
+            tbody.appendChild(tr)
+        } else {
+            let tr = document.createElement('tr')
+            let td1 = document.createElement('td')
+            td1.textContent = "Id"
+            let td2 = document.createElement('td')
+            td2.textContent = "Name"
+            let td3 = document.createElement('td')
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+
+            tbody.appendChild(tr)
+            if (json[0].id != "") {
+                for (let i = 0; i < json.length; i++) {
+                    let arr = [json[i].id, json[i].name]
+                    let tr = document.createElement('tr')
+                    for (let j = 0; j < arr.length; j++) {
+                        let td = document.createElement('td')
+                        var p = document.createElement('p');
+                        p.id = "hyper";
+                        p.textContent = arr[j];
+                        /*btn.type= "button";
+                        btn.className="btn";
+                        btn.value=arr[j];
+                        btn.onclick=alert("hiii");*/
+                        td.appendChild(p);
+                        // td.textContent=arr[j];
+                        tr.appendChild(td);
+                    }
+                    let td = document.createElement('td')
+                    tbody.appendChild(tr)
+                }
+            }
         }
+        table.appendChild(tbody)
+        table.id = "table";
+        container.appendChild(table)
+        table.setAttribute("border", "1")
+        table.style.fontFamily = "Comic Sans MS"
+        document.getElementById('resultF').style.visibility = 'hidden'
+        document.getElementById('formR').style.visibility = 'visible'
+
+
     }
+
 }
 
-let table = document.querySelector("table");
+$(document).ready(function () {
 
-let data = Object.keys(mountains[0]);
-generateTable(table, mountains); // generate the table first
-generateTableHead(table, data); // then the head
+    $('#hyper').click(function () {
+        alert("hi jq");
+        window.location.href = "http://localhost:8080";
+    });
+});
