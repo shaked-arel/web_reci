@@ -91,8 +91,9 @@
                             <option value="first"></option>
                             <option value="calories">Calories</option>
                             <option value="fat"> Fat</option>
-                            <option value="sat_fat">Sat-fat</option>
-                            <option value="protein">Protein</option>f
+                            <option value="sat-fat">Sat-fat</option>
+                            <option value="protein">Protein</option>
+                            f
                             <option value="fiber">Fiber</option>
                             <option value="carbs">Carbs</option>
                         </select>
@@ -116,7 +117,7 @@
                                 <output name="x2" for="a2">2000</output>
                             </div>
                             <!-- fat sat slider-->
-                            <div id="sat_fat" class="tabslider">
+                            <div id="sat-fat" class="tabslider">
                                 0
                                 <input type="range" id="a3" name="a" value="1000" max="3200">
                                 3200
@@ -158,6 +159,18 @@
     <div class="row section scrollspy" id="show Recipes"
          style="margin-top:50px; border-bottom:2px solid #26a69a; padding-top:15px;">
         <h3> Recipes </h3>
+        <form method="post" action="getRecipe">
+            <div id="row">
+                <div id="col s6" style="width: 50%">
+                    <label for="recipeId">Enter your wanted id recipe:</label>
+                    <input type="number" id="recipeId" name="recipeId" placeholder="Enter any recipe's id"
+                           required>
+                </div>
+                <div id="col s6"  style="width: 50%">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -171,21 +184,18 @@
     <div class="row section scrollspy" id="rec1"
          style="margin-top:50px; padding-bottom:30px; border-top:2px solid #EDF06A; border-bottom:2px solid #EDF06A; padding-top:15px;">
         <h3>Recommended</h3>
-            <div class="row">
-                <div class="col s6">
-            <p>click on the star to see the most recommended recipes</p>
-                    </div>
-                <div class="col s6">
-                   <a href="getRecommended" title="bt star" class="fa fa-star" target="result" style="font-size:30px"></a>
-                </div>
-                <div class="res">
-                    <p id="container" align="center" ></p>
-                    <iframe name="result" id="result" onload="showTable()" style="border:none"></iframe>
-                </div>
-                <table>
-
-                </table>
+        <div class="row">
+            <div class="col s6">
+                <p>click on the star to see the most recommended recipes</p>
             </div>
+            <div class="col s6">
+                <a href="getRecommended" title="bt star" class="fa fa-star" target="result" style="font-size:30px"></a>
+            </div>
+            <div class="res">
+                <p id="container" align="center"></p>
+                <iframe name="result" id="result" onload="showTable()" style="visibility: hidden"></iframe>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -203,9 +213,14 @@
                 <p>click on the heart to see your most favorites recipes</p>
             </div>
             <div class="col s6">
-                <a href="getFavorites" title="bt heart" class="fa fa-heart" style="font-size:30px"></a>
+                <a href="getFavorites" title="bt heart" class="fa fa-heart" target="resultF" style="font-size:30px"></a>
+            </div>
+            <div class="resF">
+                <p id="containerF" align="center"></p>
+                <iframe name="resultF" id="resultF" onload="showTableF()" style="visibility: hidden"></iframe>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -218,35 +233,37 @@
     <div class="row section scrollspy" id="top101"
          style="margin-top:50px; padding-bottom:30px; border-top:2px solid #EF755F; border-bottom:2px solid #EF755F; padding-top:15px;">
         <h3>Top 10</h3>
-        <form method="post" action="getTop10" >
-        <div class="row">
+        <form method="post" action="getTop10">
+            <div class="row">
                 <div class="input-field col s6" style="width:50%">
                     <label for="val">Choose a nutritional value:</label>
-                    <select name="nutrition" id="nutrition">
+                    <select name="nutritional" id="nutritional">
                         <option value="first"></option>
                         <option value="calories">Calories</option>
                         <option value="fat"> Fat</option>
                         <option value="sat-fat">Sat-fat</option>
-                        <option value="protein">Protein</option>f
+                        <option value="protein">Protein</option>
+                        f
                         <option value="fiber">Fiber</option>
                         <option value="carbs">Carbs</option>
                     </select>
                 </div>
-            <div class="input-field col s6" style="width:50%">
-                <label class="switch">
-                    <input type="checkbox" name="lowhigh" class="switch-input" >
-                    <span class="switch-label" data-on="highest" data-off="lowest"></span>
-                    <span class="switch-handle"></span>
-                </label>
-            </div>
-            <div class="input-group-btn input-group-append">
-                <div style="text-align: center">
-                    <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                <div class="input-field col s6" style="width:50%">
+                    <label class="switch">
+                        <input type="checkbox" name="lowhigh" class="switch-input">
+                        <span class="switch-label" data-on="highest" data-off="lowest"></span>
+                        <span class="switch-handle"></span>
+                    </label>
+                </div>
+                <div class="input-group-btn input-group-append">
+                    <div style="text-align: center">
+                        <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                    </div>
                 </div>
             </div>
-        </div>
         </form>
     </div>
+
 </div>
 
 <div id="User" class="tabcontentM">
@@ -258,77 +275,80 @@
 
     <h3>User</h3>
     <div class="true">
-    <div class="row">
-        <div class="col s6" style="width:30%">
-            <label id="firstName">First name:<%= user.name%></label>
+        <div class="row">
+            <div class="col s6" style="width:30%">
+                <label id="firstName">First name:<%= user.name %></label>
+            </div>
+            <div class="col s6" style="width:10%">
+                <button class="btnS" onclick="openUpdateTab(Event,'fname')" style="font-size:16px"><i
+                            class="fa fa-cog"></i>
+                </button>
+            </div>
         </div>
-        <div class="col s6" style="width:10%">
-            <button class="btnS" onclick="openUpdateTab(Event,'fname')" style="font-size:16px"><i class="fa fa-cog"></i>
-            </button>
+        <div class="row">
+            <div class="tabUpdate" id="fname">
+                <form action="updatefname" method="post">
+                    <input type="text" name="fname" id="fname" style="width:30%" placeholder="first name">
+                    <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="tabUpdate" id="fname">
-            <form action="updatefname" method="post">
-                <input type="text" name="fname" id="fname" style="width:30%" placeholder="first name">
-                <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
-            </form>
+        <div class="row">
+            <div class="col s6" style="width:30%">
+                <label id="lastName">Last name:<%= user.fname %></label>
+            </div>
+            <div class="col s6" style="width:10%">
+                <button class="btnS" onclick="openUpdateTab(Event,'lname')" style="font-size:16px"><i
+                            class="fa fa-cog"></i>
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col s6" style="width:30%">
-            <label id="lastName">Last name:<%= user.fname%></label>
+        <div class="row">
+            <div class="tabUpdate" id="lname">
+                <form action="updatelname" method="post">
+                    <input type="text" name="lname" id="lname" style="width:30%" placeholder="last name">
+                    <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
+                </form>
+            </div>
         </div>
-        <div class="col s6" style="width:10%">
-            <button class="btnS" onclick="openUpdateTab(Event,'lname')" style="font-size:16px"><i class="fa fa-cog"></i>
-            </button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="tabUpdate" id="lname">
-            <form action="updatelname" method="post">
-                <input type="text" name="lname" id="lname" style="width:30%" placeholder="last name">
-                <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
-            </form>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col s6" style="width:30%">
-            <label>Email: <%= user.email%></label>
+        <div class="row">
+            <div class="col s6" style="width:30%">
+                <label>Email: <%= user.email %></label>
+            </div>
+            <div class="col s6" style="width:10%">
+                <button class="btnS" onclick="openUpdateTab(Event,'email')" style="font-size:16px"><i
+                            class="fa fa-cog"></i>
+                </button>
+            </div>
         </div>
-        <div class="col s6" style="width:10%">
-            <button class="btnS" onclick="openUpdateTab(Event,'email')" style="font-size:16px"><i class="fa fa-cog"></i>
-            </button>
+        <div class="row">
+            <div class="tabUpdate" id="email">
+                <form action="updateEmail" method="post">
+                    <input type="email" name="email" id="email" style="width:30%" placeholder="email">
+                    <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="tabUpdate" id="email">
-            <form action="updateEmail" method="post">
-                <input type="email" name="email" id="email" style="width:30%" placeholder="email">
-                <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
-            </form>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col s6" style="width:30%">
-            <label>Password:<%= user.password%></label>
+        <div class="row">
+            <div class="col s6" style="width:30%">
+                <label>Password:<%= user.password %></label>
+            </div>
+            <div class="col s6" style="width:10%">
+                <button class="btnS" onclick="openUpdateTab(Event,'password')" style="font-size:16px"><i
+                            class="fa fa-cog"></i>
+                </button>
+            </div>
         </div>
-        <div class="col s6" style="width:10%">
-            <button class="btnS" onclick="openUpdateTab(Event,'password')" style="font-size:16px"><i
-                        class="fa fa-cog"></i>
-            </button>
+        <div class="row">
+            <div class="tabUpdate" id="password">
+                <form action="updatePassword" method="post">
+                    <input type="password" name="password" id="password" style="width:30%" placeholder="password">
+                    <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="tabUpdate" id="password">
-            <form action="updatePassword" method="post">
-                <input type="password" name="password" id="password" style="width:30%" placeholder="password">
-                <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
-            </form>
-        </div>
-    </div>
 
     </div>
     <div class="false">
@@ -351,8 +371,8 @@
             tablinks[i].style.backgroundColor = "";
         }
         document.getElementById(pageName).style.display = "block";
-        if(pageName === "User"){
-         //   alert(pageName+ name);
+        if (pageName === "User") {
+            //   alert(pageName+ name);
 
             showUser(user.name);
         }
