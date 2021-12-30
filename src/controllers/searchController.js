@@ -87,6 +87,18 @@ let findTop10 = async (req, res) => {
     }
 }
 
+let getRecipeById = async (req, res) => {
+    console.log(req.body.recipeId);
+    try {
+        await searchService.getRecipeById(req.body.recipeId).then(async (rows) => {
+            return res.send(JSON.stringify(rows));
+        });
+    } catch (err) {
+        req.flash("errors", err);
+        return res.redirect("/login");
+    }
+}
+
 module.exports = {
     findRecipeByName: findRecipeByName,
     findRecipeByIngredients: findRecipeByIngredients,
@@ -94,4 +106,5 @@ module.exports = {
     getRecommended: getRecommended,
     findByNutr: findByNutr,
     findTop10: findTop10,
+    getRecipeById: getRecipeById,
 };

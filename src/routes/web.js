@@ -36,6 +36,7 @@ let initWebRoutes = (app) => {
     router.get("/getRecommended",searchController.getRecommended);
     router.post("/searchByNut", searchController.findByNutr);
     router.post("/getTop10", searchController.findTop10);
+    router.post("/getRecipe",searchController.getRecipeById);
     router.post("/updatefname",updateController.updateFName);
     router.post("/updatelname",updateController.updateLName);
     router.post("/updateEmail",updateController.updateEmail);
@@ -48,11 +49,11 @@ let initWebRoutes = (app) => {
     })
     router.post("/skip",(req,res)=>{
         let skip = {
-            iduser: "underfind",
-            name: "underfind",
-            fname: "underfind",
-            email: "underfind",
-            password: "underfind"
+            iduser: 0,
+            name: "skip",
+            fname: "skip",
+            email: "dontChangeSkip@gmail.com",
+            password: "000000"
         };
         return res.render("home.ejs",{
             user: skip

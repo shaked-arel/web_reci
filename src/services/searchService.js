@@ -162,6 +162,27 @@ let findTop10 = (nutrition, lowOrHigh) => {
     });
 };
 
+let getRecipeById = (idrec) => {
+    const RecipeById = "SELECT * FROM recipe WHERE( id ="+idrec+")";
+    console.log(RecipeById);
+    return new Promise((resolve, reject) => {
+        try {
+            DBConnection.query(
+                RecipeById,
+                function (err, rows) {
+                    if (err) {
+                        console.log(" in error")
+                        reject(err)
+                    }
+                    resolve(rows);
+                }
+            );
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
 module.exports = {
     findRecipeByName: findRecipeByName,
     findRecipeByIngredients: findRecipeByIngredients,
@@ -169,4 +190,5 @@ module.exports = {
     getRecommended: getRecommended,
     findByNutr: findByNutr,
     findTop10: findTop10,
+    getRecipeById: getRecipeById,
 };
