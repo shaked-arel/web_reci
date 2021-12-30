@@ -111,8 +111,9 @@ let getRecipeById = async (req, res) => {
                 rate: rate[0].rating,
             }
             console.log(recipeInfo);
-            req.flash(recipeInfo);
-            return res.redirect("/recipePage");
+            return res.render("recipePage.ejs", {
+                recipeInfo: recipeInfo
+            })
         });
     } catch (err) {
         req.flash("errors", err);
@@ -127,6 +128,8 @@ let setRate= async (req, res) => {
         await searchService.setRate(req.user.iduser,idrec,req.body.rate).then(async (rows) => {
             req.flash(JSON.stringify(rows));
             return res.redirect("/recipePage");
+
+
         });
     } catch (err) {
         req.flash("errors", err);

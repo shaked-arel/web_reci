@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="icon" href="images/fork and spon.png" type='image/x-icon'/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
 
 <head>
     <title>Recipe Finder</title>
 
     <link href="/css/recipePage.css" rel="stylesheet" type="text/css">
     <script src="/js/recipePage.js" type="text/javascript"></script>
-    <link herf="http://maxcdn.boot"
 </head>
 
 <br></br>
@@ -20,62 +22,70 @@
     </div>
 </div>
 <div class="row section scrollspy" id="search"
-     style="margin-top: 70px;padding-bottom:30px;border-top:2px solid #26a69a;padding-top: 30px;">
-<div class="centerH2">
+     style="margin-top: 70px;padding-bottom:30px;border-top:2px solid #26a69a;padding-top: 50px;">
+    <div class="centerH2">
+        <h3> recipe name: <%= recipeInfo.name %> </h3>
+    </div>
     <div class="row">
-        <div class="col s6">
-            <h3> recipe name: </h3>
+        <div class="col s6" style="width: 50%">
+            <div class="row">
+                <h4> Serving size & Serving: </h4>
+                <p>
+                    <%=recipeInfo.size%>.
+                    <br></br>
+                    match to <%=recipeInfo.serving%> serving.
+                </p>
+            </div>
+
+            <div class="row">
+                <h4> Description: </h4>
+                <p>
+<%=recipeInfo.description%>
+                </p>
+            </div>
+            <div class="row">
+                <h4> Ingredient: </h4>
+                <p>
+<%=recipeInfo.ing%>
+                </p>
+            </div>
+
+            <div class="row">
+                <h4> Steps: </h4>
+                <p>
+                    <%=recipeInfo.steps%>
+
+                </p>
+            </div>
+
         </div>
         <div class="col s6">
+            <div class="row">
+                <h4> Rate: </h4>
+                <p>
+                    <%=recipeInfo.rate%>
+                </p>
+            </div>
             <form method="post" action="getRate">
-                    <div class="rate">
-
-                <input type="radio" id="star5" name="rate" value="5"/>
-                <label for="star5" title="text">5 stars</label>
-                <input type="radio"  id="star4" name="rate" value="4"/>
-                <label for="star4" title="text">4 stars</label>
-                <input type="radio"  id="star3" name="rate" value="3"/>
-                <label for="star3" title="text">3 stars</label>
-                <input type="radio" id="star2" name="rate" value="2"/>
-                <label for="star2" title="text">2 stars</label>
-                <input type="radio" id="star1" name="rate" value="1"/>
-                <label for="star1" title="text">1 star</label>
+                <div class="rate">
+                    <input type="radio" id="star5" name="rate" value="5"/>
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4"/>
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3"/>
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2"/>
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1"/>
+                    <label for="star1" title="text">1 star</label>
                 </div>
-            
-            
+                <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
+            </form>
+            <form method="post" action="deleteRate">
+                <button class="btnD" type="submit" style="font-size:16px"><i class="fa far fa-trash-alt"></i></button>
+            </form>
         </div>
-        <button class="btn btn-primary" style="margin-top: 45px;" type="submit"></button>
-    </form>
     </div>
-</div>
-    <br></br>
-    <div class="row">
-        <h4> Serving size & Serving: </h4>
-        <p>
-            
-        </p>
-    </div>
-
-    <div class="row">
-        <h4> Description: </h4>
-        <p>
-
-        </p>
-    </div>
-    <div class="row">
-        <h4> Ingredient: </h4>
-        <p>
-
-        </p>
-    </div>
-
-    <div class="row">
-        <h4> Steps: </h4>
-        <p>
-
-        </p>
-    </div>
-
 </div>
 </html>
 </body>

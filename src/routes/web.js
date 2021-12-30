@@ -44,7 +44,6 @@ let initWebRoutes = (app) => {
     router.post('/getRate', searchController.setRate);
     router.get("/home",(req,res)=>{
         return res.render("home.ejs",{
-            flag: true,
             user: req.user
         });
     })
