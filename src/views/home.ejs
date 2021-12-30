@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="images/fork and spon.png" type='image/x-icon'/>
+
+<head>
+    <title>Recipe Finder</title>
+
+    <link href="/css/home.css" rel="stylesheet" type="text/css">
+    <script src="/js/home.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="tab">
+    <button class="tablink fa fa-fw fa-home" onclick="openPage('Home', this, '#26a69a')" id="defaultOpen"></button>
+    <button class="tablink fa fa-fw fa-heart" onclick="openPage('Favorites', this, '#EF755F')"></button>
+    <button class="tablink fa fa-fw fa-star" onclick="openPage('Recommended', this, '#EDF06A')"></button>
+    <button class="tablink font" onclick="openPage('Top10',this, '#EDF06A')"> 10</button>
+    <button class="tablink fa fa-fw fa-user" onclick="openPage('User',this, '#EFB251')"></button>
+</div>
+<div id="Home" class="tabcontentM">
+    <div class="butcontainer">
+        <div class="centerH2">
+            <h2>Recipe Finder</h2>
+        </div>
+    </div>
+
+    <div class="row section scrollspy" id="search"
+         style="margin-top:50px; padding-bottom:30px; border-top:2px solid #26a69a; border-bottom:2px solid #26a69a; padding-top:15px;">
+        <h3> Search By </h3>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(Event,'Name')"> Name</button>
+            <button class="tablinks" onclick="openTab(Event,'Ingredient')"> Ingredient</button>
+            <button class="tablinks" onclick="openTab(Event,'Nutritional')"> Nutritional</button>
+        </div>
+
+        <div id="Name" class="tabcontent">
+            <span onClick="this.parentElement.style.display='none'" class="topright">&times</span>
+            <form action="searchByName" class="searchByName" method="POST">
+                <h4>Name</h4>
+                <div class="input-field col s6" style="width:50%">
+                    <input type="text" name="contain" id="contain"
+                           placeholder="Enter any recipe name (e.g. cake)">
+                </div>
+                <div class="input-group-btn input-group-append">
+                    <div style="text-align: center">
+                        <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="Ingredient" class="tabcontent">
+            <span onClick="this.parentElement.style.display='none'" class="topright">&times</span>
+            <form action="searchByIng" class="searchByIng" method="POST">
+                <h4>Ingredient</h4>
+                <div class="row">
+                    <div class="input-field col s6" style="width:50%">
+                        <label for="used">Used:</label>
+                        <input type="text" name="used" id="used"
+                               placeholder="Enter any ingredient's name (e.g. milk)">
+                    </div>
+                    <div class="input-field col s6" style="width:50%">
+                        <label for="notUsed">Not-Used:</label>
+                        <input type="text" name="notUsed" id="notUsed"
+                               placeholder="Enter any ingredient's name (e.g. Potato)">
+                    </div>
+                </div>
+                <div class="input-group-btn input-group-append">
+                    <div style="text-align: center">
+                        <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="Nutritional" class="tabcontent">
+            <span onClick="this.parentElement.style.display='none'" class="topright">&times</span>
+            <form action="searchByNut" class="searchByNut" method="POST"
+                  oninput="x1.value=parseInt(a1.value);
+                  x2.value=parseInt(a2.value);
+                  x3.value=parseInt(a3.value);
+                  x4.value=parseInt(a4.value);
+                  x5.value=parseInt(a5.value);
+                  x6.value=parseInt(a6.value);">
+                <h4>Nutritional Profile</h4>
+                <div class="row">
+                    <div class="input-field col s6" style="width:50%">
+                        <label for="val">Choose a nutritional value:</label>
+                        <select name="nutritional" id="nutritional" onchange="openSlider()">
+                            <option value="first"></option>
+                            <option value="calories">Calories</option>
+                            <option value="fat"> Fat</option>
+                            <option value="sat_fat">Sat-fat</option>
+                            <option value="protein">Protein</option>f
+                            <option value="fiber">Fiber</option>
+                            <option value="carbs">Carbs</option>
+                        </select>
+                    </div>
+                    <div class="input-field col s6" style="width:50%">
+                        <div id="contain sliders" class="sliders_container">
+                            <!-- save place div-->
+                            <div id="first" class="tabslider"></div>
+                            <!-- calories slider-->
+                            <div id="calories" class="tabslider">
+                                0
+                                <input type="range" id="a1" name="a" value="20000" max="35500">
+                                35500
+                                <output name="x1" for="a1">20000</output>
+                            </div>
+                            <!-- fat slider-->
+                            <div id="fat" class="tabslider">
+                                0
+                                <input type="range" id="a2" name="a" value="2000" max="4500">
+                                4500
+                                <output name="x2" for="a2">2000</output>
+                            </div>
+                            <!-- fat sat slider-->
+                            <div id="sat_fat" class="tabslider">
+                                0
+                                <input type="range" id="a3" name="a" value="1000" max="3200">
+                                3200
+                                <output name="x3" for="a3">1000</output>
+                            </div>
+                            <!-- protein slider-->
+                            <div id="protein" class="tabslider">
+                                0
+                                <input type="range" id="a4" name="a" value="2500" max="5000">
+                                5000
+                                <output name="x4" for="a4">2500</output>
+                            </div>
+                            <!-- fiber slider-->
+                            <div id="fiber" class="tabslider">
+                                0
+                                <input type="range" id="a5" name="a" value="1500" max="3020">
+                                3020
+                                <output name="x5" for="a5">1500</output>
+                            </div>
+                            <!-- crabs slider-->
+                            <div id="carbs" class="tabslider">
+                                0
+                                <input type="range" id="a6" name="a" value="6000" max="12300">
+                                12300
+                                <output name="x6" for="a6">6000</output>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group-btn input-group-append">
+                    <div style="text-align: center">
+                        <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="row section scrollspy" id="show Recipes"
+         style="margin-top:50px; border-bottom:2px solid #26a69a; padding-top:15px;">
+        <h3> Recipes </h3>
+    </div>
+</div>
+
+
+<div id="Recommended" class="tabcontentM">
+    <div class="butcontainer">
+        <div class="centerH2">
+            <h2>Recipe Finder</h2>
+        </div>
+    </div>
+    <div class="row section scrollspy" id="rec1"
+         style="margin-top:50px; padding-bottom:30px; border-top:2px solid #EDF06A; border-bottom:2px solid #EDF06A; padding-top:15px;">
+        <h3>Recommended</h3>
+            <div class="row">
+                <div class="col s6">
+            <p>click on the star to see the most recommended recipes</p>
+                    </div>
+                <div class="col s6">
+                   <a href="getRecommended" title="bt star" class="fa fa-star" target="result" style="font-size:30px"></a>
+                </div>
+                <div class="res">
+                    <p id="container" align="center" ></p>
+                    <iframe name="result" id="result" onload="showTable()" style="border:none"></iframe>
+                </div>
+                <table>
+
+                </table>
+            </div>
+    </div>
+</div>
+
+<div id="Favorites" class="tabcontentM">
+    <div class="butcontainer">
+        <div class="centerH2">
+            <h2>Recipe Finder</h2>
+        </div>
+    </div>
+    <div class="row section scrollspy" id="fav1"
+         style="margin-top:50px; padding-bottom:30px; border-top:2px solid #EF755F; border-bottom:2px solid #EF755F; padding-top:15px;">
+        <h3>Favorites</h3>
+        <div class="row">
+            <div class="col s6">
+                <p>click on the heart to see your most favorites recipes</p>
+            </div>
+            <div class="col s6">
+                <a href="getFavorites" title="bt heart" class="fa fa-heart" style="font-size:30px"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Top10" class="tabcontentM">
+    <div class="butcontainer">
+        <div class="centerH2">
+            <h2>Recipe Finder</h2>
+        </div>
+    </div>
+    <div class="row section scrollspy" id="top101"
+         style="margin-top:50px; padding-bottom:30px; border-top:2px solid #EF755F; border-bottom:2px solid #EF755F; padding-top:15px;">
+        <h3>Top 10</h3>
+        <form method="post" action="getTop10" >
+        <div class="row">
+                <div class="input-field col s6" style="width:50%">
+                    <label for="val">Choose a nutritional value:</label>
+                    <select name="nutrition" id="nutrition">
+                        <option value="first"></option>
+                        <option value="calories">Calories</option>
+                        <option value="fat"> Fat</option>
+                        <option value="sat-fat">Sat-fat</option>
+                        <option value="protein">Protein</option>f
+                        <option value="fiber">Fiber</option>
+                        <option value="carbs">Carbs</option>
+                    </select>
+                </div>
+            <div class="input-field col s6" style="width:50%">
+                <label class="switch">
+                    <input type="checkbox" name="lowhigh" class="switch-input" >
+                    <span class="switch-label" data-on="highest" data-off="lowest"></span>
+                    <span class="switch-handle"></span>
+                </label>
+            </div>
+            <div class="input-group-btn input-group-append">
+                <div style="text-align: center">
+                    <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<div id="User" class="tabcontentM">
+    <div class="butcontainer">
+        <div class="centerH2">
+            <h2>Recipe Finder</h2>
+        </div>
+    </div>
+
+    <h3>User</h3>
+    <div class="true">
+    <div class="row">
+        <div class="col s6" style="width:30%">
+            <label id="firstName">First name:<%= user.name%></label>
+        </div>
+        <div class="col s6" style="width:10%">
+            <button class="btnS" onclick="openUpdateTab(Event,'fname')" style="font-size:16px"><i class="fa fa-cog"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tabUpdate" id="fname">
+            <form action="updatefname" method="post">
+                <input type="text" name="fname" id="fname" style="width:30%" placeholder="first name">
+                <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s6" style="width:30%">
+            <label id="lastName">Last name:<%= user.fname%></label>
+        </div>
+        <div class="col s6" style="width:10%">
+            <button class="btnS" onclick="openUpdateTab(Event,'lname')" style="font-size:16px"><i class="fa fa-cog"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tabUpdate" id="lname">
+            <form action="updatelname" method="post">
+                <input type="text" name="lname" id="lname" style="width:30%" placeholder="last name">
+                <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s6" style="width:30%">
+            <label>Email: <%= user.email%></label>
+        </div>
+        <div class="col s6" style="width:10%">
+            <button class="btnS" onclick="openUpdateTab(Event,'email')" style="font-size:16px"><i class="fa fa-cog"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tabUpdate" id="email">
+            <form action="updateEmail" method="post">
+                <input type="email" name="email" id="email" style="width:30%" placeholder="email">
+                <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s6" style="width:30%">
+            <label>Password:<%= user.password%></label>
+        </div>
+        <div class="col s6" style="width:10%">
+            <button class="btnS" onclick="openUpdateTab(Event,'password')" style="font-size:16px"><i
+                        class="fa fa-cog"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tabUpdate" id="password">
+            <form action="updatePassword" method="post">
+                <input type="password" name="password" id="password" style="width:30%" placeholder="password">
+                <button class="btnS" type="submit" style="font-size:16px"><i class="fa fa-check"></i></button>
+            </form>
+        </div>
+    </div>
+
+    </div>
+    <div class="false">
+        <form class="login" action="/login" method="get">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    //open page tabs:
+    function openPage(pageName, elmnt, color) {
+        let i, tabcontentM, tablinks;
+        tabcontentM = document.getElementsByClassName("tabcontentM");
+        for (i = 0; i < tabcontentM.length; i++) {
+            tabcontentM[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(pageName).style.display = "block";
+        if(pageName === "User"){
+         //   alert(pageName+ name);
+
+            showUser(user.name);
+        }
+        elmnt.style.backgroundColor = color;
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>
+</body>
+
+</html>
