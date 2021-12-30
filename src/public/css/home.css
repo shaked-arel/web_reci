@@ -94,7 +94,7 @@ h4 {
     font-size: 30px;
 }
 
-input[type=text],[type=password],[type=email] {
+input[type=text],[type=password],[type=email],[type=number] {
     width: 100%;
     display: inline-block;
     background-color: transparent;
