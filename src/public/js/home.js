@@ -328,3 +328,10 @@ function showTable() {
 
 }
 
+$(document).ready(function () {
+
+    $('#hyper').click(function () {
+        alert("hi jq");
+        window.location.href = "http://localhost:8080";
+    });
+});

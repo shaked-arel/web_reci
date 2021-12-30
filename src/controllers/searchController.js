@@ -88,11 +88,15 @@ let findTop10 = async (req, res) => {
 }
 
 let idrec;
+let rate;
 
 let getRecipeById = async (req, res) => {
     idrec=req.body.recipeId;
     try {
         await searchService.getRecipeById(req.body.recipeId).then(async (rows) => {
+            await searchService.getRecipeRate(idrec).then(async(rateRec)=>{
+                rate=JSON.parse(rateRec);
+            })
             let info = JSON.stringify(rows);
           //  console.log(info);
             let recInfo = JSON.parse(info);
@@ -104,8 +108,9 @@ let getRecipeById = async (req, res) => {
                 serving: recInfo[0].servings,
                 size: recInfo[0].serving_size,
                 steps: recInfo[0].steps,
+                rate: rate[0].rating,
             }
-           // console.log(recipeInfo);
+            console.log(recipeInfo);
             req.flash(recipeInfo);
             return res.redirect("/recipePage");
         });

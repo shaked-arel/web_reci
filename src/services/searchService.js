@@ -204,6 +204,28 @@ let setRate = (iduser, idrec, rate) => {
     });
 };
 
+let getRecipeRate = (idrec) => {
+    const updateRate = "SELECT AVG(rate) as rating FROM rate_by_user WHERE(idrecipe="+idrec+")";
+    console.log(updateRate);
+    return new Promise((resolve, reject) => {
+        try {
+            DBConnection.query(
+                updateRate,
+                function (err, rows) {
+                    if (err) {
+                        console.log(" in error")
+                        reject(err)
+                    }
+                    resolve(JSON.stringify(rows));
+                }
+            );
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+
 module.exports = {
     findRecipeByName: findRecipeByName,
     findRecipeByIngredients: findRecipeByIngredients,
@@ -213,4 +235,5 @@ module.exports = {
     findTop10: findTop10,
     getRecipeById: getRecipeById,
     setRate: setRate,
+    getRecipeRate: getRecipeRate,
 };
