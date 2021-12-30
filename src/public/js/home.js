@@ -320,18 +320,10 @@ function showTable() {
         container.appendChild(table)
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
-        document.getElementById('resultF').style.visibility = 'hidden'
+        document.getElementById('result').style.visibility = 'hidden'
         document.getElementById('formR').style.visibility = 'visible'
 
 
     }
 
 }
-
-$(document).ready(function () {
-
-    $('#hyper').click(function () {
-        alert("hi jq");
-        window.location.href = "http://localhost:8080";
-    });
-});
