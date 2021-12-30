@@ -183,6 +183,27 @@ let getRecipeById = (idrec) => {
     });
 };
 
+let setRate = (idrec) => {
+    const updateRate = "SELECT * FROM recipe WHERE( id ="+idrec+")";
+    console.log(updateRate);
+    return new Promise((resolve, reject) => {
+        try {
+            DBConnection.query(
+                updateRate,
+                function (err, rows) {
+                    if (err) {
+                        console.log(" in error")
+                        reject(err)
+                    }
+                    resolve(rows);
+                }
+            );
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
 module.exports = {
     findRecipeByName: findRecipeByName,
     findRecipeByIngredients: findRecipeByIngredients,
@@ -191,4 +212,5 @@ module.exports = {
     findByNutr: findByNutr,
     findTop10: findTop10,
     getRecipeById: getRecipeById,
+    setRate: setRate,
 };

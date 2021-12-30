@@ -41,6 +41,7 @@ let initWebRoutes = (app) => {
     router.post("/updatelname",updateController.updateLName);
     router.post("/updateEmail",updateController.updateEmail);
     router.post("/updatePassword",updateController.updatePassword);
+    router.post('/getRate', searchController.setRate);
     router.get("/home",(req,res)=>{
         return res.render("home.ejs",{
             flag: true,

@@ -91,7 +91,21 @@ let getRecipeById = async (req, res) => {
     console.log(req.body.recipeId);
     try {
         await searchService.getRecipeById(req.body.recipeId).then(async (rows) => {
-            return res.send(JSON.stringify(rows));
+            req.flash(JSON.stringify(rows));
+            return res.redirect("/recipePage");
+        });
+    } catch (err) {
+        req.flash("errors", err);
+        return res.redirect("/login");
+    }
+}
+
+let setRate= async (req, res) => {
+    console.log(req.body.rate);
+    try {
+        await searchService.setRate(req.body.rate).then(async (rows) => {
+            req.flash(JSON.stringify(rows));
+            return res.redirect("/recipePage");
         });
     } catch (err) {
         req.flash("errors", err);
@@ -107,4 +121,5 @@ module.exports = {
     findByNutr: findByNutr,
     findTop10: findTop10,
     getRecipeById: getRecipeById,
+    setRate: setRate,
 };
