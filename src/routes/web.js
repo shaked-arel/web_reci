@@ -42,6 +42,7 @@ let initWebRoutes = (app) => {
     router.post("/updateEmail",updateController.updateEmail);
     router.post("/updatePassword",updateController.updatePassword);
     router.post('/getRate', searchController.setRate);
+    router.post("/deleteRate",searchController.deleteRate);
     router.get("/home",(req,res)=>{
         return res.render("home.ejs",{
             user: req.user

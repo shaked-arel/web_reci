@@ -127,7 +127,7 @@ let setRate= async (req, res) => {
     try {
         await searchService.setRate(req.user.iduser,idrec,req.body.rate).then(async (rows) => {
             req.flash(JSON.stringify(rows));
-            return res.redirect("/recipePage");
+            return res.redirect("/home");
 
 
         });
@@ -141,9 +141,9 @@ let deleteRate= async (req, res) => {
     //console.log(req.body.rate);
     console.log(req.user.iduser)
     try {
-        await searchService.setRate(req.user.iduser,idrec).then(async (rows) => {
+        await searchService.deleteRate(req.user.iduser,idrec).then(async (rows) => {
             req.flash(JSON.stringify(rows));
-            return res.redirect("/recipePage");
+            return res.redirect("/home");
         });
     } catch (err) {
         req.flash("errors", err);
