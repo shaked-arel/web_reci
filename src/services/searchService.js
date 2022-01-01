@@ -116,7 +116,7 @@ let findByNutr = (nutritional, a) => {
     if (nutritional.localeCompare("carbs") == 0) {
         value = a[5]
     }
-    const findNut = "SELECT id,name FROM recipe WHERE(id IN (SELECT * FROM(SELECT idrecipe FROM product_in_recipe,product WHERE( product.idproduct= product_in_recipe.idproduct) GROUP BY(idrecipe) HAVING(sum(" + nutritional + "*amount)< " + value + ")LIMIT 50) AS rc))";
+    const findNut = "SELECT idrecipe,name, energy FROM (SELECT idrecipe, sum("+nutritional+"*amount) as energy FROM product_in_recipe,product WHERE( product.idproduct= product_in_recipe.idproduct) GROUP BY(idrecipe) HAVING(energy< "+value+")LIMIT 50) AS rc,recipe WHERE (rc.idrecipe=recipe.id)";
     console.log(findNut);
     return new Promise((resolve, reject) => {
         try {
@@ -146,8 +146,7 @@ let findTop10 = (nutrition, lowOrHigh) => {
     if(nutrition.localeCompare("sat-fat")==0){
         nutrition="sat_fat"
     }
-    const getTop10 = "SELECT id,name FROM recipe WHERE (id IN( SELECT * FROM(SELECT idrecipe FROM product_in_recipe,product WHERE( product.idproduct= product_in_recipe.idproduct) GROUP BY(idrecipe) ORDER BY sum(" + nutrition + "*amount) "+desc+" LIMIT 10)AS rc))";
-
+    const getTop10 = "SELECT idrecipe,name,energy FROM (SELECT idrecipe , sum("+nutrition+"*amount) as energy FROM product_in_recipe,product WHERE( product.idproduct= product_in_recipe.idproduct) GROUP BY(idrecipe) ORDER BY energy "+desc+" LIMIT 10) As rc,recipe WHERE(rc.idrecipe=recipe.id)";
     console.log(getTop10);
     return new Promise((resolve, reject) => {
         try {
