@@ -555,7 +555,6 @@ output {
     height: 37.5px;
 }
 .border{
-    border-radius: 25px;
     border: 1px solid #ccc;
     padding: 20px;
     width: 95%;
