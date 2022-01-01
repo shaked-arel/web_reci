@@ -33,8 +33,16 @@ let findRecipeByName = async (req, res) => {
 
 let findRecipeByIngredients = async (req, res) => {
     console.log("in controller");
+    let usedNotUsed = "";
+    if (typeof (req.body.UsedNotUsed) === 'undefined') {
+        usedNotUsed = "off";
+    } else {
+        console.log("on");
+        usedNotUsed = "on";
+    }
+    console.log(req.body.ing);
     try {
-        await searchService.findRecipeByIngredients(req.body.used, req.body.notUsed).then(async (rows) => {
+        await searchService.findRecipeByIngredients(req.body.ing,usedNotUsed).then(async (rows) => {
             let ans = JSON.stringify(rows);
             return res.send(rename(ans));
         });

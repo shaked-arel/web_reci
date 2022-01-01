@@ -24,8 +24,13 @@ let findRecipeByName = (str) => {
     });
 };
 
-let findRecipeByIngredients = (used, not_used) => {
-    const findRecipeByIng = "SELECT id,name FROM recipe WHERE (id IN (SELECT distinct idrecipe FROM product_in_recipe WHERE( idproduct IN (SELECT idproduct FROM product WHERE( food LIKE '% " + used + " %' OR food LIKE '% " + used + "' OR food LIKE '" + used + " %' OR food LIKE '" + used + "')))))";
+let findRecipeByIngredients = (prod,UsedNotUsed) => {
+    let used_not_used = "not";
+    if (UsedNotUsed.localeCompare("on") == 0) {
+        console.log("heree please work");
+        used_not_used = ""
+    }
+    const findRecipeByIng = "SELECT id,name FROM recipe WHERE (id "+used_not_used+" IN (SELECT distinct idrecipe FROM product_in_recipe WHERE( idproduct IN (SELECT idproduct FROM product WHERE( food LIKE '% " + prod + " %' OR food LIKE '% " + prod + "' OR food LIKE '" + prod + " %' OR food LIKE '" + prod + "')))))LIMIT 30";
     console.log(findRecipeByIng);
     return new Promise((resolve, reject) => {
         try {
