@@ -1,10 +1,28 @@
 import searchService from "../services/searchService";
 
+let rename = (recipe) => {
+    console.log(recipe);
+    console.log(recipe[0]);
+    recipe = recipe.replace(/\(/g, "");
+    recipe = recipe.replace(/\)/g, "");
+    recipe = recipe.replace(/&/g, "");
+    recipe = recipe.replace(/;/g, "");
+   /* for(var i=0; i<Object.keys(recipe).length;i++){
+        recipe[i].replace(/\(/g, "");
+        recipe[i].replace(/\)/g, "");
+    }*/
+    console.log("----------------------")
+    console.log(recipe);
+    return recipe;  
+}
+
 let findRecipeByName = async (req, res) => {
     try {
         await searchService.findRecipeByName(req.body.contain).then(async (rows) => {
-            console.log(rows);
-            return res.send(JSON.stringify(rows));
+            //  console.log(rows);
+            //console.log(typeof(rows));
+            let ans = JSON.stringify(rows);
+            return res.send(rename(ans));
         });
     } catch (err) {
         req.flash("errors", err);
@@ -17,8 +35,8 @@ let findRecipeByIngredients = async (req, res) => {
     console.log("in controller");
     try {
         await searchService.findRecipeByIngredients(req.body.used, req.body.notUsed).then(async (rows) => {
-            return res.send(JSON.stringify(rows));
-
+            let ans = JSON.stringify(rows);
+            return res.send(rename(ans));
         });
     } catch (err) {
         req.flash("errors", err);
@@ -29,7 +47,8 @@ let getMyFavorites = async (req, res) => {
     //  console.log("in controller");
     try {
         await searchService.getMyFavorites(req.user.iduser).then(async (rows) => {
-            return res.send(JSON.stringify(rows));
+            let ans = JSON.stringify(rows);
+            return res.send(rename(ans));
         });
     } catch (err) {
         req.flash("errors", err);
@@ -41,7 +60,8 @@ let getRecommended = async (req, res) => {
     //  console.log("in controller");
     try {
         await searchService.getRecommended().then(async (rows) => {
-            return res.send(JSON.stringify(rows));
+            let ans = JSON.stringify(rows);
+            return res.send(rename(ans));
         });
     } catch (err) {
         req.flash("errors", err);
@@ -54,7 +74,8 @@ let findByNutr = async (req, res) => {
     console.log(req.body);
     try {
         await searchService.findByNutr(req.body.nutritional, req.body.a).then(async (rows) => {
-            return res.send(JSON.stringify(rows));
+            let ans = JSON.stringify(rows);
+            return res.send(rename(ans));
         });
     } catch (err) {
         req.flash("errors", err);
@@ -73,7 +94,8 @@ let findTop10 = async (req, res) => {
     }
     try {
         await searchService.findTop10(req.body.nutrition, lowOrhigh).then(async (rows) => {
-            return res.send(JSON.stringify(rows));
+            let ans = JSON.stringify(rows);
+            return res.send(rename(ans));
         });
     } catch (err) {
         req.flash("errors", err);
@@ -96,11 +118,11 @@ let getRecipeById = async (req, res) => {
             let recipeInfo = {
                 id: recInfo[0].id,
                 name: recInfo[0].name,
-                description: recInfo[0].description,
-                ing: recInfo[0].ingredients_raw_str,
+                description: recInfo[0].description.replace(/"|'/g,""),
+                ing: recInfo[0].ingredients_raw_str.replace(/@/g, ","),
                 serving: recInfo[0].servings,
                 size: recInfo[0].serving_size,
-                steps: recInfo[0].steps,
+                steps: recInfo[0].steps.replace(/"|'/g,""),
                 rate: rate[0].rating,
             }
             console.log(recipeInfo);
