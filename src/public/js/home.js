@@ -311,11 +311,59 @@ function showTable() {
     }
 }
 
+
+function createTableA(container){
+    container.innerHTML = ""
+    let table = document.createElement('table')
+    let tbody = document.createElement('tbody')
+    alert("hii")
+
+    if (json[0].name == "") {
+        alert("hii1")
+
+        let tr = document.createElement('tr')
+        let td = document.createElement('td')
+        td.textContent = "theres no recipes to you"
+        tr.appendChild(td);
+        tbody.appendChild(tr)
+    } else {
+        alert("hii2")
+
+        let tr = document.createElement('tr')
+        let td1 = document.createElement('td')
+        td1.textContent = "Id"
+        let td2 = document.createElement('td')
+        td2.textContent = "Name"
+        let td3 = document.createElement('td')
+        td3.textContent = "Amount"
+        tr.appendChild(td1)
+        tr.appendChild(td2)
+       // tr.appendChild(td3)
+        tbody.appendChild(tr)
+        if (json[0].name != "") {
+            for (let i = 0; i < json.length; i++) {
+                let arr = [json[i].idrecipe, json[i].name]
+                let tr = document.createElement('tr')
+                for (let j = 0; j < arr.length; j++) {
+                    let td = document.createElement('td')
+                    td.textContent = arr[j];
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr)
+            }
+        }
+    }
+    table.appendChild(tbody)
+    container.appendChild(table)
+    table.setAttribute("border", "1")
+    table.style.fontFamily = "Comic Sans MS"
+
+}
+
 function showTableSearchN() {
     let list = document.getElementById('resultSearchN').contentDocument.firstChild.textContent;
     if (list) {
         alert(list);
-
         let json = JSON.parse(list);
         let container = document.getElementById('containerSN')
         container.innerHTML = ""
@@ -334,12 +382,15 @@ function showTableSearchN() {
             td1.textContent = "Id"
             let td2 = document.createElement('td')
             td2.textContent = "Name"
+            let td3 = document.createElement('td')
+            td2.textContent = "Amount"
             tr.appendChild(td1)
             tr.appendChild(td2)
+            tr.appendChild(td3)
             tbody.appendChild(tr)
             if (json[0].id != "") {
                 for (let i = 0; i < json.length; i++) {
-                    let arr = [json[i].id, json[i].name]
+                    let arr = [json[i].id, json[i].name, json[i].amount]
                     let tr = document.createElement('tr')
                     for (let j = 0; j < arr.length; j++) {
                         let td = document.createElement('td')
@@ -409,45 +460,9 @@ function showTableSearchP() {
     let list = document.getElementById('resultSearchP').contentDocument.firstChild.textContent;
     if (list) {
         alert(list);
-
         let json = JSON.parse(list);
         let container = document.getElementById('containerSP')
-        container.innerHTML = ""
-        let table = document.createElement('table')
-        let tbody = document.createElement('tbody')
-
-        if (json[0].id == "") {
-            let tr = document.createElement('tr')
-            let td = document.createElement('td')
-            td.textContent = "theres no recipes to you"
-            tr.appendChild(td);
-            tbody.appendChild(tr)
-        } else {
-            let tr = document.createElement('tr')
-            let td1 = document.createElement('td')
-            td1.textContent = "Id"
-            let td2 = document.createElement('td')
-            td2.textContent = "Name"
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-            tbody.appendChild(tr)
-            if (json[0].id != "") {
-                for (let i = 0; i < json.length; i++) {
-                    let arr = [json[i].id, json[i].name]
-                    let tr = document.createElement('tr')
-                    for (let j = 0; j < arr.length; j++) {
-                        let td = document.createElement('td')
-                        td.textContent = arr[j];
-                        tr.appendChild(td);
-                    }
-                    tbody.appendChild(tr)
-                }
-            }
-        }
-        table.appendChild(tbody)
-        container.appendChild(table)
-        table.setAttribute("border", "1")
-        table.style.fontFamily = "Comic Sans MS"
+        createTableA(container);
         document.getElementById('resultSearchP').style.visibility = 'hidden'
     }
 }

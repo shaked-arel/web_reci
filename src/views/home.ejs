@@ -17,6 +17,9 @@
     <button class="tablink fa fa-fw fa-star" onclick="openPage('Recommended', this, '#EDF06A')"></button>
     <button class="tablink font" onclick="openPage('Top10',this, '#EDF06A')"> 10</button>
     <button class="tablink fa fa-fw fa-user" onclick="openPage('User',this, '#EFB251')"></button>
+    <form action = "log-out" method = "post">
+    <button class="tablink font"> Log-Out</button>
+    </form>
 </div>
 <div id="Home" class="tabcontentM">
     <div class="butcontainer">
@@ -24,7 +27,6 @@
             <h2>Recipe Finder</h2>
         </div>
     </div>
-
     <div class="row section scrollspy" id="search"
          style="margin-top:50px; padding-bottom:30px; border-top:2px solid #26a69a; border-bottom:2px solid #26a69a; padding-top:15px;">
         <h3> Search By </h3>
@@ -48,9 +50,11 @@
                     </div>
                 </div>
             </form>
+            <div style="width:70%; height:600px; overflow:auto; alignment: right">
             <div class="resS">
                 <p id="containerSN" align="center"></p>
                 <iframe name="resultSearchN" id="resultSearchN" onload="showTableSearchN()" style="border:none"></iframe>
+            </div>
             </div>
         </div>
 
@@ -78,9 +82,11 @@
                     </div>
                 </div>
             </form>
+            <div style="width:70%; height:600px; overflow:auto; alignment: right">
             <div class="resS">
                 <p id="containerSU" align="center"></p>
                 <iframe name="resultSearchU" id="resultSearchU" onload="showTableSearchU()" style="border:none"></iframe>
+            </div>
             </div>
         </div>
 
@@ -162,9 +168,11 @@
                     </div>
                 </div>
             </form>
+            <div style="width:70%; height:600px; overflow:auto; alignment: right">
             <div class="resS">
                 <p id="containerSP" align="center"></p>
                 <iframe name="resultSearchP" id="resultSearchP" onload="showTableSearchP()" style="border:none"></iframe>
+            </div>
             </div>
         </div>
 
@@ -211,6 +219,8 @@
             <div class="col s6">
                 <a href="getRecommended" title="bt star" class="fa fa-star" target="result" style="font-size:30px"></a>
             </div>
+        </div>
+        <div style="width:70%; height:90%; overflow:auto; alignment:right">
             <div class="res">
                 <p id="container" align="center"></p>
                 <iframe name="result" id="result" onload="showTable()" style="visibility: hidden"></iframe>
@@ -235,12 +245,13 @@
             <div class="col s6">
                 <a href="getFavorites" title="bt heart" class="fa fa-heart" target="resultF" style="font-size:30px"></a>
             </div>
+        </div>
+        <div style="width:70%; height:90%; overflow:auto; alignment:right">
             <div class="resF">
                 <p id="containerF" align="center"></p>
                 <iframe name="resultF" id="resultF" onload="showTableF()" style="visibility: hidden"></iframe>
             </div>
         </div>
-
     </div>
 </div>
 

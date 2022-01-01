@@ -15,6 +15,9 @@
 .tablink:hover {
     background-color: #777;
 }
+.tablink [class="logOut"]{
+    alignment: left;
+}
 
 /* Style tab links */
 .iconBut {
@@ -282,15 +285,6 @@ input[type="submit" i] {
 
 user agent stylesheet
 input {
-    /* font-style: ;
-     font-variant-ligatures: ;
-     font-variant-caps: ;
-     font-variant-numeric: ;
-     font-variant-east-asian: ;
-     font-weight: ;
-     font-stretch: ;
-     font-size: ;
-     font-family: ;*/
     text-rendering: auto;
     letter-spacing: normal;
     word-spacing: normal;
