@@ -13,7 +13,7 @@ let router = express.Router();
 
 let initWebRoutes = (app) => {
 
-    router.get("/", (req, res)=>{
+    router.get("/" ,(req, res)=>{
         return res.render("homepage.ejs" ,{
             errors: req.flash("errors")
         });
@@ -42,6 +42,7 @@ let initWebRoutes = (app) => {
     router.post("/updateEmail",updateController.updateEmail);
     router.post("/updatePassword",updateController.updatePassword);
     router.post('/getRate', searchController.setRate);
+    router.post("/log-out",loginController.postLogOut);
     router.post("/deleteRate",searchController.deleteRate);
     router.get("/home",(req,res)=>{
         return res.render("home.ejs",{
