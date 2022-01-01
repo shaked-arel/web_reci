@@ -1,7 +1,7 @@
 import DBConnection from "./../configs/connectDB";
 
 let findRecipeByName = (str) => {
-    const findRecipeByname = "SELECT id,name FROM recipe WHERE ( name LIKE '% " + str + " %' OR name LIKE '% " + str + "')";
+    const findRecipeByname = "SELECT id,name FROM recipe WHERE ( name LIKE '% " + str + " %' OR name LIKE '% " + str + "')LIMIT 7";
     console.log(findRecipeByname);
     return new Promise((resolve, reject) => {
         try {

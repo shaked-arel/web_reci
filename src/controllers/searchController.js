@@ -2,12 +2,10 @@ import searchService from "../services/searchService";
 
 let findRecipeByName = async (req, res) => {
     try {
-        //console.log(req.body.contain)
         await searchService.findRecipeByName(req.body.contain).then(async (rows) => {
-            // console.log(rows);
-
+            console.log(rows);
+            return res.send(JSON.stringify(rows));
         });
-        return res.redirect("/home");
     } catch (err) {
         req.flash("errors", err);
         return res.redirect("/login");
@@ -19,10 +17,9 @@ let findRecipeByIngredients = async (req, res) => {
     console.log("in controller");
     try {
         await searchService.findRecipeByIngredients(req.body.used, req.body.notUsed).then(async (rows) => {
-            // console.log(rows);
+            return res.send(JSON.stringify(rows));
 
         });
-        return res.redirect("/home");
     } catch (err) {
         req.flash("errors", err);
         return res.redirect("/login");
@@ -32,10 +29,8 @@ let getMyFavorites = async (req, res) => {
     //  console.log("in controller");
     try {
         await searchService.getMyFavorites(req.user.iduser).then(async (rows) => {
-            console.log(rows);
-
+            return res.send(JSON.stringify(rows));
         });
-        return res.redirect("/home");
     } catch (err) {
         req.flash("errors", err);
         return res.redirect("/login");
@@ -71,11 +66,10 @@ let findTop10 = async (req, res) => {
     //  console.log("in controller");
     console.log(req.body.lowhigh);
     let lowOrhigh = "";
-    if(typeof(req.body.lowhigh)==='undefined'){
-        lowOrhigh="off";
-    }
-    else{
-        lowOrhigh="on";
+    if (typeof (req.body.lowhigh) === 'undefined') {
+        lowOrhigh = "off";
+    } else {
+        lowOrhigh = "on";
     }
     try {
         await searchService.findTop10(req.body.nutrition, lowOrhigh).then(async (rows) => {
@@ -91,14 +85,13 @@ let idrec;
 let rate;
 
 let getRecipeById = async (req, res) => {
-    idrec=req.body.recipeId;
+    idrec = req.body.recipeId;
     try {
         await searchService.getRecipeById(req.body.recipeId).then(async (rows) => {
-            await searchService.getRecipeRate(idrec).then(async(rateRec)=>{
-                rate=JSON.parse(rateRec);
+            await searchService.getRecipeRate(idrec).then(async (rateRec) => {
+                rate = JSON.parse(rateRec);
             })
             let info = JSON.stringify(rows);
-          //  console.log(info);
             let recInfo = JSON.parse(info);
             let recipeInfo = {
                 id: recInfo[0].id,
@@ -121,11 +114,11 @@ let getRecipeById = async (req, res) => {
     }
 }
 
-let setRate= async (req, res) => {
+let setRate = async (req, res) => {
     console.log(req.body.rate);
     console.log(req.user.iduser)
     try {
-        await searchService.setRate(req.user.iduser,idrec,req.body.rate).then(async (rows) => {
+        await searchService.setRate(req.user.iduser, idrec, req.body.rate).then(async (rows) => {
             req.flash(JSON.stringify(rows));
             return res.redirect("/home");
 
@@ -137,11 +130,11 @@ let setRate= async (req, res) => {
     }
 }
 
-let deleteRate= async (req, res) => {
+let deleteRate = async (req, res) => {
     //console.log(req.body.rate);
     console.log(req.user.iduser)
     try {
-        await searchService.deleteRate(req.user.iduser,idrec).then(async (rows) => {
+        await searchService.deleteRate(req.user.iduser, idrec).then(async (rows) => {
             req.flash(JSON.stringify(rows));
             return res.redirect("/home");
         });
