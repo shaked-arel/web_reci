@@ -405,13 +405,13 @@ function showTableSearchU() {
     }
 }
 
-function showTableSearchU() {
-    let list = document.getElementById('resultSearchU').contentDocument.firstChild.textContent;
+function showTableSearchP() {
+    let list = document.getElementById('resultSearchP').contentDocument.firstChild.textContent;
     if (list) {
         alert(list);
 
         let json = JSON.parse(list);
-        let container = document.getElementById('containerSU')
+        let container = document.getElementById('containerSP')
         container.innerHTML = ""
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
@@ -448,10 +448,10 @@ function showTableSearchU() {
         container.appendChild(table)
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
-        document.getElementById('resultSearchU').style.visibility = 'hidden'
+        document.getElementById('resultSearchP').style.visibility = 'hidden'
     }
 }
-function showRecipesTop10() {
+function showRecipesTOP10() {
     let list = document.getElementById('showRecipes').contentDocument.firstChild.textContent;
     if (list) {
         let json = JSON.parse(list);
