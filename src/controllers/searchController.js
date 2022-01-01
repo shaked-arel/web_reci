@@ -1,26 +1,17 @@
 import searchService from "../services/searchService";
 
 let rename = (recipe) => {
-    console.log(recipe);
-    console.log(recipe[0]);
     recipe = recipe.replace(/\(/g, "");
     recipe = recipe.replace(/\)/g, "");
     recipe = recipe.replace(/&/g, "");
     recipe = recipe.replace(/;/g, "");
-   /* for(var i=0; i<Object.keys(recipe).length;i++){
-        recipe[i].replace(/\(/g, "");
-        recipe[i].replace(/\)/g, "");
-    }*/
-    console.log("----------------------")
-    console.log(recipe);
-    return recipe;  
+    return recipe;
 }
 
 let findRecipeByName = async (req, res) => {
     try {
         await searchService.findRecipeByName(req.body.contain).then(async (rows) => {
-            //  console.log(rows);
-            //console.log(typeof(rows));
+
             let ans = JSON.stringify(rows);
             return res.send(rename(ans));
         });
@@ -28,20 +19,16 @@ let findRecipeByName = async (req, res) => {
         req.flash("errors", err);
         return res.redirect("/login");
     }
-    //searchService.findRecipeByName(req.body.contain)
 }
 
 let findRecipeByIngredients = async (req, res) => {
-    console.log("in controller");
     let usedNotUsed = "";
     if (typeof (req.body.UsedNotUsed) === 'undefined') {
         usedNotUsed = "off";
     } else {
-        console.log("on");
         usedNotUsed = "on";
     }
-    console.log(req.body.ing);
-    try {
+       try {
         await searchService.findRecipeByIngredients(req.body.ing,usedNotUsed).then(async (rows) => {
             let ans = JSON.stringify(rows);
             return res.send(rename(ans));
@@ -52,7 +39,6 @@ let findRecipeByIngredients = async (req, res) => {
     }
 }
 let getMyFavorites = async (req, res) => {
-    //  console.log("in controller");
     try {
         await searchService.getMyFavorites(req.user.iduser).then(async (rows) => {
             let ans = JSON.stringify(rows);
@@ -65,7 +51,6 @@ let getMyFavorites = async (req, res) => {
 }
 
 let getRecommended = async (req, res) => {
-    //  console.log("in controller");
     try {
         await searchService.getRecommended().then(async (rows) => {
             let ans = JSON.stringify(rows);
@@ -78,8 +63,6 @@ let getRecommended = async (req, res) => {
 }
 
 let findByNutr = async (req, res) => {
-    //  console.log("in controller");
-    console.log(req.body);
     try {
         await searchService.findByNutr(req.body.nutritional, req.body.a).then(async (rows) => {
             let ans = JSON.stringify(rows);
@@ -92,9 +75,7 @@ let findByNutr = async (req, res) => {
 }
 
 let findTop10 = async (req, res) => {
-    //  console.log("in controller");
-    console.log(req.body.lowhigh);
-    let lowOrhigh = "";
+     let lowOrhigh = "";
     if (typeof (req.body.lowhigh) === 'undefined') {
         lowOrhigh = "off";
     } else {
@@ -133,7 +114,6 @@ let getRecipeById = async (req, res) => {
                 steps: recInfo[0].steps.replace(/"|'/g,""),
                 rate: rate[0].rating,
             }
-            console.log(recipeInfo);
             return res.render("recipePage.ejs", {
                 recipeInfo: recipeInfo
             })
@@ -145,13 +125,10 @@ let getRecipeById = async (req, res) => {
 }
 
 let setRate = async (req, res) => {
-    console.log(req.body.rate);
-    console.log(req.user.iduser)
     try {
         await searchService.setRate(req.user.iduser, idrec, req.body.rate).then(async (rows) => {
-            req.flash(JSON.stringify(rows));
-            return res.redirect("/home");
 
+            return res.redirect("/home");
 
         });
     } catch (err) {
@@ -161,11 +138,8 @@ let setRate = async (req, res) => {
 }
 
 let deleteRate = async (req, res) => {
-    //console.log(req.body.rate);
-    console.log(req.user.iduser)
     try {
         await searchService.deleteRate(req.user.iduser, idrec).then(async (rows) => {
-            req.flash(JSON.stringify(rows));
             return res.redirect("/home");
         });
     } catch (err) {

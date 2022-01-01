@@ -42,23 +42,11 @@ let initWebRoutes = (app) => {
     router.post("/updateEmail",updateController.updateEmail);
     router.post("/updatePassword",updateController.updatePassword);
     router.post('/getRate', searchController.setRate);
-    router.post("/log-out",loginController.postLogOut);
-    router.post("/deleteRate",searchController.deleteRate);
+    router.get("/log-out",loginController.postLogOut);
+    router.get("/deleteRate",searchController.deleteRate);
     router.get("/home",(req,res)=>{
         return res.render("home.ejs",{
             user: req.user
-        });
-    })
-    router.post("/skip",(req,res)=>{
-        let skip = {
-            iduser: 0,
-            name: "skip",
-            fname: "skip",
-            email: "dontChangeSkip@gmail.com",
-            password: "000000"
-        };
-        return res.render("home.ejs",{
-            user: skip
         });
     })
     return app.use("/", router);

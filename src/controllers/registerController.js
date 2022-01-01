@@ -9,9 +9,7 @@ let createNewUser = async (req, res) => {
     //validate required fields
     let errorsArr = [];
     let validationErrors = validationResult(req);
-    console.log(req.body);
     if (!validationErrors.isEmpty()) {
-        console.log("after1");
         let errors = Object.values(validationErrors.mapped());
         errors.forEach((item) => {
             errorsArr.push(item.msg);
@@ -28,8 +26,6 @@ let createNewUser = async (req, res) => {
         email: req.body.email,
         password: req.body.password
     };
-  //  req.user = newUser;
-    console.log(newUser);
     try {
         await registerService.createNewUser(newUser);
         return res.redirect("/login");

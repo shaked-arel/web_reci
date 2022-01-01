@@ -2,19 +2,14 @@ import DBConnection from "./../configs/connectDB";
 
 let findRecipeByName = (str) => {
     const findRecipeByname = "SELECT id,name FROM recipe WHERE ( name LIKE '% " + str + " %' OR name LIKE '% " + str + "')";
-    console.log(findRecipeByname);
     return new Promise((resolve, reject) => {
         try {
-            // console.log(str);
             DBConnection.query(
                 findRecipeByname,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
-                    //let user = rows[0];
-                    //console.log(rows)
                     resolve(rows);
                 }
             );
@@ -27,19 +22,15 @@ let findRecipeByName = (str) => {
 let findRecipeByIngredients = (prod,UsedNotUsed) => {
     let used_not_used = "not";
     if (UsedNotUsed.localeCompare("on") == 0) {
-        console.log("heree please work");
         used_not_used = ""
     }
     const findRecipeByIng = "SELECT id,name FROM recipe WHERE (id "+used_not_used+" IN (SELECT distinct idrecipe FROM product_in_recipe WHERE( idproduct IN (SELECT idproduct FROM product WHERE( food LIKE '% " + prod + " %' OR food LIKE '% " + prod + "' OR food LIKE '" + prod + " %' OR food LIKE '" + prod + "')))))LIMIT 30";
-    console.log(findRecipeByIng);
     return new Promise((resolve, reject) => {
         try {
-            // console.log(str);
             DBConnection.query(
                 findRecipeByIng,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
                     resolve(rows);
@@ -53,14 +44,12 @@ let findRecipeByIngredients = (prod,UsedNotUsed) => {
 
 let getMyFavorites = (id) => {
     const findMyFavorites = "SELECT id,name FROM recipe WHERE(id IN(SELECT idrecipe FROM rate_by_user WHERE( iduser=" + id + " AND rate=5)))";
-    console.log(findMyFavorites);
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 findMyFavorites,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
                     resolve(rows);
@@ -74,14 +63,12 @@ let getMyFavorites = (id) => {
 
 let getRecommended = () => {
     const findRecommended = "SELECT id,name FROM recipe WHERE( id IN (SELECT idrecipe FROM rate_by_user group by(idrecipe) HAVING avg(rate) > 4));";
-    console.log(findRecommended);
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 findRecommended,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
                     resolve(rows);
@@ -94,9 +81,6 @@ let getRecommended = () => {
 };
 
 let findByNutr = (nutritional, a) => {
-    console.log(typeof (nutritional));
-    console.log("in service after printing nutr");
-    // console.log(typeof(nutritional.localeCompare(nutritional)));
     let value;
     if (nutritional.localeCompare("calories") == 0) {
         value = a[0]
@@ -117,14 +101,12 @@ let findByNutr = (nutritional, a) => {
         value = a[5]
     }
     const findNut = "SELECT idrecipe,name, energy FROM (SELECT idrecipe, sum("+nutritional+"*amount) as energy FROM product_in_recipe,product WHERE( product.idproduct= product_in_recipe.idproduct) GROUP BY(idrecipe) HAVING(energy< "+value+")LIMIT 50) AS rc,recipe WHERE (rc.idrecipe=recipe.id)";
-    console.log(findNut);
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 findNut,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
                     resolve(rows);
@@ -137,9 +119,7 @@ let findByNutr = (nutritional, a) => {
 };
 
 let findTop10 = (nutrition, lowOrHigh) => {
-    console.log(nutrition);
-
-    let desc = "";
+   let desc = "";
     if (lowOrHigh.localeCompare("on") == 0) {
         desc = "DESC"
     }
@@ -147,14 +127,12 @@ let findTop10 = (nutrition, lowOrHigh) => {
         nutrition="sat_fat"
     }
     const getTop10 = "SELECT idrecipe,name,energy FROM (SELECT idrecipe , sum("+nutrition+"*amount) as energy FROM product_in_recipe,product WHERE( product.idproduct= product_in_recipe.idproduct) GROUP BY(idrecipe) ORDER BY energy "+desc+" LIMIT 10) As rc,recipe WHERE(rc.idrecipe=recipe.id)";
-    console.log(getTop10);
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 getTop10,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
                     resolve(rows);
@@ -168,14 +146,12 @@ let findTop10 = (nutrition, lowOrHigh) => {
 
 let getRecipeById = (idrec) => {
     const RecipeById = "SELECT * FROM recipe WHERE( id ="+idrec+")";
-    console.log(RecipeById);
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 RecipeById,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
                     resolve(rows);
@@ -189,17 +165,15 @@ let getRecipeById = (idrec) => {
 
 let setRate = (iduser, idrec, rate) => {
     const updateRate = "INSERT INTO rate_by_user VALUES("+iduser+", "+idrec+", "+rate+") ON DUPLICATE KEY UPDATE rate="+rate;
-    console.log(updateRate);
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 updateRate,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
-                    resolve(rows);
+                    resolve();
                 }
             );
         } catch (err) {
@@ -210,14 +184,12 @@ let setRate = (iduser, idrec, rate) => {
 
 let getRecipeRate = (idrec) => {
     const updateRate = "SELECT AVG(rate) as rating FROM rate_by_user WHERE(idrecipe="+idrec+")";
-    console.log(updateRate);
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 updateRate,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
                     resolve(JSON.stringify(rows));
@@ -231,14 +203,12 @@ let getRecipeRate = (idrec) => {
 
 let deleteRate = (iduser,idrec) => {
     const delRate = "DELETE FROM rate_by_user WHERE(idrecipe="+idrec+" AND iduser="+iduser+")";
-    console.log(delRate);
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 delRate,
                 function (err, rows) {
                     if (err) {
-                        console.log(" in error")
                         reject(err)
                     }
                     resolve(JSON.stringify(rows));

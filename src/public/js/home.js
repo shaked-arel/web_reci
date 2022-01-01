@@ -194,7 +194,6 @@ function openSlider() {
 document.getElementById("User").addEventListener("load", showUser(user.name));
 
 function showUser(name) {
-    alert("hiiiii");
     if (name.equal("underfind")) {
         document.getElementsByClassName("true").style.display = "none";
         document.getElementsByClassName("false").style.display = "block";
@@ -238,14 +237,8 @@ function showTableF() {
                     for (let j = 0; j < arr.length; j++) {
                         let td = document.createElement('td')
                         var p = document.createElement('p');
-                      //  p.id = "hyper";
                         p.textContent = arr[j];
-                        /*btn.type= "button";
-                        btn.className="btn";
-                        btn.value=arr[j];
-                        btn.onclick=alert("hiii");*/
                         td.appendChild(p);
-                        // td.textContent=arr[j];
                         tr.appendChild(td);
                     }
                     tbody.appendChild(tr)
@@ -268,7 +261,6 @@ function showTable() {
     if (list) {
 
         let json = JSON.parse(list)
-        alert(json);
         let container = document.getElementById('container')
         container.innerHTML = ""
         let table = document.createElement('table')
@@ -317,7 +309,6 @@ function createTable(container){
 function showTableSearchN() {
     let list = document.getElementById('resultSearchN').contentDocument.firstChild.textContent;
     if (list) {
-        alert(list);
         let json = JSON.parse(list);
         let container = document.getElementById('containerSN')
         container.innerHTML = ""
@@ -366,8 +357,6 @@ function showTableSearchN() {
 function showTableSearchU() {
     let list = document.getElementById('resultSearchU').contentDocument.firstChild.textContent;
     if (list) {
-        alert(list);
-
         let json = JSON.parse(list);
         let container = document.getElementById('containerSU')
         container.innerHTML = ""
@@ -413,8 +402,6 @@ function showTableSearchU() {
 function showTableSearchP() {
     let list = document.getElementById('resultSearchP').contentDocument.firstChild.textContent;
     if (list) {
-        alert(list);
-
         let json = JSON.parse(list);
         let container = document.getElementById('containerSP')
         container.innerHTML = ""

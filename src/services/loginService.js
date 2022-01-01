@@ -3,9 +3,7 @@ import DBConnection from "./../configs/connectDB";
 let handleLogin = (email, password) => {
     return new Promise(async (resolve, reject) => {
         //check email is exist or not
-        console.log("im here");
         let user = await findUserByEmail(email);
-        console.log("here");
         if (user) {
             //compare password
             /*comparePassword(password, user)*/
