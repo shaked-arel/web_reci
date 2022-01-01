@@ -311,17 +311,13 @@ function showTable() {
     }
 }
 
-function showTableSearch() {
-    let list = document.getElementById('resultSearch').contentDocument.firstChild.textContent;
-    document.getElementById('resultSearch').style.visibility = ""
-
+function showTableSearchN() {
+    let list = document.getElementById('resultSearchN').contentDocument.firstChild.textContent;
     if (list) {
         alert(list);
+
         let json = JSON.parse(list);
-        alert("hii")
-
-
-        let container = document.getElementById('containerS')
+        let container = document.getElementById('containerSN')
         container.innerHTML = ""
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
@@ -358,6 +354,144 @@ function showTableSearch() {
         container.appendChild(table)
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
-        document.getElementById('resultSearch').style.visibility = 'hidden'
+        document.getElementById('resultSearchN').style.visibility = 'hidden'
+    }
+}
+
+function showTableSearchU() {
+    let list = document.getElementById('resultSearchU').contentDocument.firstChild.textContent;
+    if (list) {
+        alert(list);
+
+        let json = JSON.parse(list);
+        let container = document.getElementById('containerSU')
+        container.innerHTML = ""
+        let table = document.createElement('table')
+        let tbody = document.createElement('tbody')
+
+        if (json[0].id == "") {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "theres no recipes to you"
+            tr.appendChild(td);
+            tbody.appendChild(tr)
+        } else {
+            let tr = document.createElement('tr')
+            let td1 = document.createElement('td')
+            td1.textContent = "Id"
+            let td2 = document.createElement('td')
+            td2.textContent = "Name"
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            tbody.appendChild(tr)
+            if (json[0].id != "") {
+                for (let i = 0; i < json.length; i++) {
+                    let arr = [json[i].id, json[i].name]
+                    let tr = document.createElement('tr')
+                    for (let j = 0; j < arr.length; j++) {
+                        let td = document.createElement('td')
+                        td.textContent = arr[j];
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr)
+                }
+            }
+        }
+        table.appendChild(tbody)
+        container.appendChild(table)
+        table.setAttribute("border", "1")
+        table.style.fontFamily = "Comic Sans MS"
+        document.getElementById('resultSearchU').style.visibility = 'hidden'
+    }
+}
+
+function showTableSearchU() {
+    let list = document.getElementById('resultSearchU').contentDocument.firstChild.textContent;
+    if (list) {
+        alert(list);
+
+        let json = JSON.parse(list);
+        let container = document.getElementById('containerSU')
+        container.innerHTML = ""
+        let table = document.createElement('table')
+        let tbody = document.createElement('tbody')
+
+        if (json[0].id == "") {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "theres no recipes to you"
+            tr.appendChild(td);
+            tbody.appendChild(tr)
+        } else {
+            let tr = document.createElement('tr')
+            let td1 = document.createElement('td')
+            td1.textContent = "Id"
+            let td2 = document.createElement('td')
+            td2.textContent = "Name"
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            tbody.appendChild(tr)
+            if (json[0].id != "") {
+                for (let i = 0; i < json.length; i++) {
+                    let arr = [json[i].id, json[i].name]
+                    let tr = document.createElement('tr')
+                    for (let j = 0; j < arr.length; j++) {
+                        let td = document.createElement('td')
+                        td.textContent = arr[j];
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr)
+                }
+            }
+        }
+        table.appendChild(tbody)
+        container.appendChild(table)
+        table.setAttribute("border", "1")
+        table.style.fontFamily = "Comic Sans MS"
+        document.getElementById('resultSearchU').style.visibility = 'hidden'
+    }
+}
+function showRecipesTop10() {
+    let list = document.getElementById('showRecipes').contentDocument.firstChild.textContent;
+    if (list) {
+        let json = JSON.parse(list);
+        let container = document.getElementById('containerR')
+        container.innerHTML = ""
+        let table = document.createElement('table')
+        let tbody = document.createElement('tbody')
+
+        if (json[0].id == "") {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "theres no recipes to you"
+            tr.appendChild(td);
+            tbody.appendChild(tr)
+        } else {
+            let tr = document.createElement('tr')
+            let td1 = document.createElement('td')
+            td1.textContent = "Id"
+            let td2 = document.createElement('td')
+            td2.textContent = "Name"
+            tr.appendChild(td1)
+            tr.appendChild(td2)
+            tbody.appendChild(tr)
+            if (json[0].id != "") {
+                for (let i = 0; i < json.length; i++) {
+                    let arr = [json[i].id, json[i].name]
+                    let tr = document.createElement('tr')
+                    for (let j = 0; j < arr.length; j++) {
+                        let td = document.createElement('td')
+                        td.textContent = arr[j];
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr)
+                }
+            }
+        }
+        table.appendChild(tbody)
+        container.appendChild(table)
+        table.setAttribute("border", "1")
+        table.style.fontFamily = "Comic Sans MS"
+        document.getElementById('showRecipes').style.visibility = 'hidden'
     }
 }

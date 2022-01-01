@@ -36,7 +36,7 @@
 
         <div id="Name" class="tabcontent">
             <span onClick="this.parentElement.style.display='none'" class="topright">&times</span>
-            <form action="searchByName" class="searchByName" method="POST" target="resultSearch">
+            <form action="searchByName" class="searchByName" method="POST" target="resultSearchN">
                 <h4>Name</h4>
                 <div class="input-field col s6" style="width:50%">
                     <input type="text" name="contain" id="contain"
@@ -48,11 +48,15 @@
                     </div>
                 </div>
             </form>
+            <div class="resS">
+                <p id="containerSN" align="center"></p>
+                <iframe name="resultSearchN" id="resultSearchN" onload="showTableSearchN()" style="border:none"></iframe>
+            </div>
         </div>
 
         <div id="Ingredient" class="tabcontent">
             <span onClick="this.parentElement.style.display='none'" class="topright">&times</span>
-            <form action="searchByIng" class="searchByIng" method="POST" target="resultSearch">
+            <form action="searchByIng" class="searchByIng" method="POST" target="resultSearchU">
                 <h4>Ingredient</h4>
                 <div class="row">
                     <div class="input-field col s6" style="width:50%">
@@ -72,11 +76,15 @@
                     </div>
                 </div>
             </form>
+            <div class="resS">
+                <p id="containerSu" align="center"></p>
+                <iframe name="resultSearchU" id="resultSearchU" onload="showTableSearchU()" style="border:none"></iframe>
+            </div>
         </div>
 
         <div id="Nutritional" class="tabcontent">
             <span onClick="this.parentElement.style.display='none'" class="topright">&times</span>
-            <form action="searchByNut" class="searchByNut" method="POST" target="resultSearch"
+            <form action="searchByNut" class="searchByNut" method="POST" target="resultSearchP"
                   oninput="x1.value=parseInt(a1.value);
                   x2.value=parseInt(a2.value);
                   x3.value=parseInt(a3.value);
@@ -152,29 +160,45 @@
                     </div>
                 </div>
             </form>
+            <div class="resS">
+                <p id="containerSP" align="center"></p>
+                <iframe name="resultSearchP" id="resultSearchP" onload="showTableSearchP()" style="border:none"></iframe>
+            </div>
         </div>
 
-        <div class="resS">
-            <p id="containerS" align="center"></p>
-            <iframe name="resultSearch" id="resultSearch" onload="showTableSearch()" style="border:none"></iframe>
-        </div>
+
 
     </div>
     <div class="row section scrollspy" id="show Recipes"
          style="margin-top:50px; border-bottom:2px solid #26a69a; padding-top:15px;">
         <h3> Recipes </h3>
+        <div class="border">
         <form method="post" action="getRecipe">
-            <div id="row">
-                <div id="col s6" style="width: 50%">
+            <!--div id="row">
+                <div id="input-field col s6" style="width: 30%">
                     <label for="recipeId">Enter your wanted id recipe:</label>
+                </div>
+                <div id="input-field col s6" style="width: 30%">
                     <input type="number" id="recipeId" name="recipeId" placeholder="Enter any recipe's id"
                            required>
                 </div>
-                <div id="col s6" style="width: 50%">
+                <div id="input-field col s6" style="width: 30%">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-            </div>
+            </div-->
+
+            <label for="recipeId" >Enter your wanted id recipe:</label>
+
+            <input type="number" id="recipeId" name="recipeId" style="width: 45%" placeholder="Enter any recipe's id"
+                   required>
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+
         </form>
+        </div>
+
     </div>
 </div>
 
@@ -234,10 +258,10 @@
             <h2>Recipe Finder</h2>
         </div>
     </div>
-    <div class="row section scrollspy" id="top101"
+    <div class="row section scrollspy" id="top10"
          style="margin-top:50px; padding-bottom:30px; border-top:2px solid #EF755F; border-bottom:2px solid #EF755F; padding-top:15px;">
         <h3>Top 10</h3>
-        <form method="post" action="getTop10">
+        <form method="post" action="getTop10"  target="showRecipes">
             <div class="row">
                 <div class="input-field col s6" style="width:50%">
                     <label for="val">Choose a nutritional value:</label>
@@ -247,7 +271,6 @@
                         <option value="fat"> Fat</option>
                         <option value="sat-fat">Sat-fat</option>
                         <option value="protein">Protein</option>
-                        f
                         <option value="fiber">Fiber</option>
                         <option value="carbs">Carbs</option>
                     </select>
@@ -266,6 +289,10 @@
                 </div>
             </div>
         </form>
+        <div class="resS">
+            <p id="containerR" align="center"></p>
+            <iframe name="showRecipes" id="showRecipes" onload="showRecipesTOP10()" style="border:none"></iframe>
+        </div>
     </div>
 
 </div>
@@ -353,13 +380,6 @@
                 </form>
             </div>
         </div>
-
-    </div>
-    <div class="false">
-        <form class="login" action="/login" method="get">
-            <button type="submit">Login</button>
-        </form>
-    </div>
 </div>
 
 <script>
