@@ -1,7 +1,7 @@
 import DBConnection from "./../configs/connectDB";
 
 let findRecipeByName = (str) => {
-    const findRecipeByname = "SELECT id,name FROM recipe WHERE ( name LIKE '% " + str + " %' OR name LIKE '% " + str + "')";
+    const findRecipeByname = "SELECT id,name FROM recipe WHERE ( name LIKE '% "+str+" %' OR name LIKE '% "+str+"' OR name LIKE '"+str+" %' OR name LIKE '"+str+"' )";
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
@@ -43,7 +43,7 @@ let findRecipeByIngredients = (prod,UsedNotUsed) => {
 };
 
 let getMyFavorites = (id) => {
-    const findMyFavorites = "SELECT id,name FROM recipe WHERE(id IN(SELECT idrecipe FROM rate_by_user WHERE( iduser=" + id + " AND rate=5)))";
+    const findMyFavorites = "SELECT id,name FROM recipe,rate_by_user WHERE (recipe.id=rate_by_user.idrecipe AND iduser = "+id+" AND rate=5) ;";
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
@@ -62,7 +62,7 @@ let getMyFavorites = (id) => {
 };
 
 let getRecommended = () => {
-    const findRecommended = "SELECT id,name FROM recipe WHERE( id IN (SELECT idrecipe FROM rate_by_user group by(idrecipe) HAVING avg(rate) > 4));";
+    const findRecommended = "SELECT id,name FROM rate_by_user, recipe WHERE rate_by_user.idrecipe = recipe.id group by(idrecipe) HAVING avg(rate) > 4";
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
