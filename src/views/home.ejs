@@ -197,6 +197,15 @@
          style="margin-top:50px; border-bottom:2px solid #26a69a; padding-top:15px;">
         <h3> Recipes </h3>
         <div class="border">
+            <div>
+                <% if(errors != "") { %>
+                    <% errors.forEach((item) => { %>
+                        <div class="alert alert-danger">
+                            <%- item %>
+                        </div>
+                    <% }); %>
+                <% } %>
+            </div>
             <form method="post" action="getRecipe">
                 <div class="row">
                     <div class="input-field col s6" style="width:50%">

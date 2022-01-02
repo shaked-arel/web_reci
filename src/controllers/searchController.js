@@ -119,8 +119,9 @@ let getRecipeById = async (req, res) => {
             })
         });
     } catch (err) {
+        err = "there is no recipe with this id"
         req.flash("errors", err);
-        return res.redirect("/login");
+        return res.redirect("/home");
     }
 }
 
