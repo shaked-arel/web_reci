@@ -96,7 +96,7 @@ let idrec;
 let rate;
 
 let getRecipeById = async (req, res) => {
-    idrec = req.body.recipeId;
+    /*idrec = req.body.recipeId;
     try {
         await searchService.getRecipeById(req.body.recipeId).then(async (rows) => {
             await searchService.getRecipeRate(idrec).then(async (rateRec) => {
@@ -117,12 +117,44 @@ let getRecipeById = async (req, res) => {
             console.log("here")
             return res.render("recipePage.ejs", {
                 recipeInfo: recipeInfo
-            })
+            });
         });
+
     } catch (err) {
         console.log("problam")
         let ans = JSON.stringify("there is no recipe with this id");
          return res.send(ans);
+        req.flash("errors", err);
+        return res.redirect("/login");
+
+    }*/
+
+    idrec = req.body.recipeId;
+    try {
+        await searchService.getRecipeById(req.body.recipeId).then(async (rows) => {
+            await searchService.getRecipeRate(idrec).then(async (rateRec) => {
+                rate = JSON.parse(rateRec);
+            })
+            let info = JSON.stringify(rows);
+            let recInfo = JSON.parse(info);
+            let recipeInfo = {
+                id: recInfo[0].id,
+                name: recInfo[0].name,
+                description: recInfo[0].description.replace(/"|'/g,""),
+                ing: recInfo[0].ingredients_raw_str.replace(/@/g, ","),
+                serving: recInfo[0].servings,
+                size: recInfo[0].serving_size,
+                steps: recInfo[0].steps.replace(/"|'/g,""),
+                rate: rate[0].rating,
+            }
+            return res.render("recipePage.ejs", {
+                recipeInfo: recipeInfo
+            })
+
+        });
+    } catch (err) {
+        req.flash("errors", err);
+        return res.redirect("/home");
     }
 }
 
