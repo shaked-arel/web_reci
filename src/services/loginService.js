@@ -6,7 +6,6 @@ let handleLogin = (email, password) => {
         let user = await findUserByEmail(email);
         if (user) {
             //compare password
-            /*comparePassword(password, user)*/
             if (password.localeCompare(userObject.password) == 0) {
                 resolve(true);
             } else {

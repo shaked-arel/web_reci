@@ -196,17 +196,9 @@
     <div class="row section scrollspy" id="show Recipes"
          style="margin-top:50px; border-bottom:2px solid #26a69a; padding-top:15px;">
         <h3> Recipes </h3>
+
         <div class="border">
-            <div>
-                <% if(errors != "") { %>
-                    <% errors.forEach((item) => { %>
-                        <div class="alert alert-danger">
-                            <%- item %>
-                        </div>
-                    <% }); %>
-                <% } %>
-            </div>
-            <form method="post" action="getRecipe">
+            <form method="post" action="getRecipe" target="check">
                 <div class="row">
                     <div class="input-field col s6" style="width:50%">
                         <label for="used">Enter your wanted id recipe:</label>
@@ -215,11 +207,15 @@
                     </div>
                     <div class="input-group-btn input-group-append">
                         <div style="text-align: center">
-                            <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                            <input role="button" class="btn btn-primary"  style="margin-top: 45px;" type="submit">
                         </div>
                     </div>
                 </div>
             </form>
+            <div class="resId">
+                <p id="containerId" align="center"></p>
+                <iframe name="check" id="check" onload="checkMessage()" style="visibility: hidden"></iframe>
+            </div>
         </div>
 
     </div>

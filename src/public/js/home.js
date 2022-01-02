@@ -517,3 +517,10 @@ function showRecipesTOP10() {
 
     }
 }
+function checkMessage(){
+    let message = document.getElementById('check').contentDocument.firstChild.textContent;
+    let json = JSON.parse(message);
+
+    let container = document.getElementById('containerId')
+    container.innerHTML= json;
+}

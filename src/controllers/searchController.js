@@ -114,14 +114,15 @@ let getRecipeById = async (req, res) => {
                 steps: recInfo[0].steps.replace(/"|'/g,""),
                 rate: rate[0].rating,
             }
+            console.log("here")
             return res.render("recipePage.ejs", {
                 recipeInfo: recipeInfo
             })
         });
     } catch (err) {
-        err = "there is no recipe with this id"
-        req.flash("errors", err);
-        return res.redirect("/home");
+        console.log("problam")
+        let ans = JSON.stringify("there is no recipe with this id");
+         return res.send(ans);
     }
 }
 
