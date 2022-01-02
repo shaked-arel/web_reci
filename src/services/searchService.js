@@ -82,13 +82,15 @@ let getRecommended = () => {
 
 let findByNutr = (nutritional, a) => {
     let value;
+
     if (nutritional.localeCompare("calories") == 0) {
         value = a[0]
     }
     if (nutritional.localeCompare("fat") == 0) {
         value = a[1]
     }
-    if (nutritional.localeCompare("sat_fat") == 0) {
+    if (nutritional.localeCompare("sat-fat") == 0) {
+        nutritional="sat_fat"
         value = a[2]
     }
     if (nutritional.localeCompare("protein") == 0) {
@@ -100,6 +102,7 @@ let findByNutr = (nutritional, a) => {
     if (nutritional.localeCompare("carbs") == 0) {
         value = a[5]
     }
+
     const findNut = "SELECT idrecipe,name, energy FROM (SELECT idrecipe, sum("+nutritional+"*amount) as energy FROM product_in_recipe,product WHERE( product.idproduct= product_in_recipe.idproduct) GROUP BY(idrecipe) HAVING(energy< "+value+")LIMIT 50) AS rc,recipe WHERE (rc.idrecipe=recipe.id)";
     return new Promise((resolve, reject) => {
         try {

@@ -208,29 +208,22 @@ function showTableF() {
     let list = document.getElementById('resultF').contentDocument.firstChild.textContent;
     if (list) {
         let json = JSON.parse(list)
-
         let container = document.getElementById('containerF')
         container.innerHTML = ""
-
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
-        if (json[0].id == "") {
-            let tr = document.createElement('tr')
-            let td = document.createElement('td')
-            td.textContent = json[0].id
-            tr.appendChild(td);
-            tbody.appendChild(tr)
-        } else {
-            let tr = document.createElement('tr')
-            let td1 = document.createElement('td')
-            td1.textContent = "Id"
-            let td2 = document.createElement('td')
-            td2.textContent = "Name"
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-
-            tbody.appendChild(tr)
+        try {
             if (json[0].id != "") {
+                let tr = document.createElement('tr')
+                let td1 = document.createElement('td')
+                td1.textContent = "Id"
+                let td2 = document.createElement('td')
+                td2.textContent = "Name"
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+
+                tbody.appendChild(tr)
+
                 for (let i = 0; i < json.length; i++) {
                     let arr = [json[i].id, json[i].name]
                     let tr = document.createElement('tr')
@@ -244,6 +237,12 @@ function showTableF() {
                     tbody.appendChild(tr)
                 }
             }
+        } catch {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "There are no recipes for you! try rate some recipes high (5 stars)"
+            tr.appendChild(td);
+            tbody.appendChild(tr)
         }
         table.appendChild(tbody)
         table.id = "table";
@@ -251,7 +250,7 @@ function showTableF() {
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
         document.getElementById('result').style.visibility = 'hidden'
-
+        document.getElementById('loader5').style.visibility = 'hidden'
     }
 
 }
@@ -259,28 +258,21 @@ function showTableF() {
 function showTable() {
     let list = document.getElementById('result').contentDocument.firstChild.textContent;
     if (list) {
-
         let json = JSON.parse(list)
         let container = document.getElementById('container')
         container.innerHTML = ""
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
-        if (json[0].id == "") {
-            let tr = document.createElement('tr')
-            let td = document.createElement('td')
-            td.textContent = json[0].id
-            tr.appendChild(td);
-            tbody.appendChild(tr)
-        } else {
-            let tr = document.createElement('tr')
-            let td1 = document.createElement('td')
-            td1.textContent = "Id"
-            let td2 = document.createElement('td')
-            td2.textContent = "Name"
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-            tbody.appendChild(tr)
+        try {
             if (json[0].id != "") {
+                let tr = document.createElement('tr')
+                let td1 = document.createElement('td')
+                td1.textContent = "Id"
+                let td2 = document.createElement('td')
+                td2.textContent = "Name"
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tbody.appendChild(tr)
                 for (let i = 0; i < json.length; i++) {
                     let arr = [json[i].id, json[i].name]
                     let tr = document.createElement('tr')
@@ -292,6 +284,13 @@ function showTable() {
                     tbody.appendChild(tr)
                 }
             }
+        } catch {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "There are no recommended recipes"
+            tr.appendChild(td);
+            tbody.appendChild(tr)
+
         }
         table.appendChild(tbody)
         table.id = "table";
@@ -299,11 +298,9 @@ function showTable() {
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
         document.getElementById('result').style.visibility = 'hidden'
-        document.getElementById('formR').style.visibility = 'visible'
-    }
-}
-function createTable(container){
+        document.getElementById('loader6').style.visibility = 'hidden'
 
+    }
 }
 
 function showTableSearchN() {
@@ -314,28 +311,18 @@ function showTableSearchN() {
         container.innerHTML = ""
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
-
-        if (json[0].id == "") {
-            let tr = document.createElement('tr')
-            let td = document.createElement('td')
-            td.textContent = "theres no recipes to you"
-            tr.appendChild(td);
-            tbody.appendChild(tr)
-        } else {
-            let tr = document.createElement('tr')
-            let td1 = document.createElement('td')
-            td1.textContent = "Id"
-            let td2 = document.createElement('td')
-            td2.textContent = "Name"
-            let td3 = document.createElement('td')
-            td2.textContent = "Amount"
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-            tr.appendChild(td3)
-            tbody.appendChild(tr)
+        try {
             if (json[0].id != "") {
+                let tr = document.createElement('tr')
+                let td1 = document.createElement('td')
+                td1.textContent = "Id"
+                let td2 = document.createElement('td')
+                td2.textContent = "Name"
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tbody.appendChild(tr)
                 for (let i = 0; i < json.length; i++) {
-                    let arr = [json[i].id, json[i].name, json[i].amount]
+                    let arr = [json[i].id, json[i].name]
                     let tr = document.createElement('tr')
                     for (let j = 0; j < arr.length; j++) {
                         let td = document.createElement('td')
@@ -345,12 +332,19 @@ function showTableSearchN() {
                     tbody.appendChild(tr)
                 }
             }
+        } catch {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "There are no recipes for you! check the spell or try to choose a different recipe name"
+            tr.appendChild(td);
+            tbody.appendChild(tr)
         }
         table.appendChild(tbody)
         container.appendChild(table)
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
         document.getElementById('resultSearchN').style.visibility = 'hidden'
+        document.getElementById('loader2').style.visibility = 'hidden'
     }
 }
 
@@ -363,22 +357,16 @@ function showTableSearchU() {
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
 
-        if (json[0].id == "") {
-            let tr = document.createElement('tr')
-            let td = document.createElement('td')
-            td.textContent = "theres no recipes to you"
-            tr.appendChild(td);
-            tbody.appendChild(tr)
-        } else {
-            let tr = document.createElement('tr')
-            let td1 = document.createElement('td')
-            td1.textContent = "Id"
-            let td2 = document.createElement('td')
-            td2.textContent = "Name"
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-            tbody.appendChild(tr)
+        try {
             if (json[0].id != "") {
+                let tr = document.createElement('tr')
+                let td1 = document.createElement('td')
+                td1.textContent = "Id"
+                let td2 = document.createElement('td')
+                td2.textContent = "Name"
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tbody.appendChild(tr)
                 for (let i = 0; i < json.length; i++) {
                     let arr = [json[i].id, json[i].name]
                     let tr = document.createElement('tr')
@@ -390,12 +378,20 @@ function showTableSearchU() {
                     tbody.appendChild(tr)
                 }
             }
+        } catch {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "There are no recipes for you! check the spell or try choosing a different ingredient name "
+            tr.appendChild(td);
+            tbody.appendChild(tr)
         }
         table.appendChild(tbody)
         container.appendChild(table)
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
         document.getElementById('resultSearchU').style.visibility = 'hidden'
+        document.getElementById('loader3').style.visibility = 'hidden'
+
     }
 }
 
@@ -407,25 +403,19 @@ function showTableSearchP() {
         container.innerHTML = ""
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
-        if (json[0].id == "") {
-            let tr = document.createElement('tr')
-            let td = document.createElement('td')
-            td.textContent = "theres no recipes to you"
-            tr.appendChild(td);
-            tbody.appendChild(tr)
-        } else {
-            let tr = document.createElement('tr')
-            let td1 = document.createElement('td')
-            td1.textContent = "Id"
-            let td2 = document.createElement('td')
-            td2.textContent = "Name"
-            let td3 = document.createElement('td')
-            td3.textContent = "Amount"
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-            tr.appendChild(td3)
-            tbody.appendChild(tr)
+        try {
             if (json[0].id != "") {
+                let tr = document.createElement('tr')
+                let td1 = document.createElement('td')
+                td1.textContent = "Id"
+                let td2 = document.createElement('td')
+                td2.textContent = "Name"
+                let td3 = document.createElement('td')
+                td3.textContent = "Count"
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tbody.appendChild(tr)
                 for (let i = 0; i < json.length; i++) {
                     let arr = [json[i].idrecipe, json[i].name, json[i].energy]
                     let tr = document.createElement('tr')
@@ -437,14 +427,47 @@ function showTableSearchP() {
                     tbody.appendChild(tr)
                 }
             }
+        } catch {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "There are no recipes for you! try to choose a wide range"
+            tr.appendChild(td);
+            tbody.appendChild(tr)
         }
         table.appendChild(tbody)
         container.appendChild(table)
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
         document.getElementById('resultSearchP').style.visibility = 'hidden'
+        document.getElementById('loader4').style.visibility = 'hidden'
+
     }
 }
+
+function addLoader1() {
+    document.getElementById('loader1').style.visibility = 'visible'
+}
+
+function addLoader2() {
+    document.getElementById('loader2').style.visibility = 'visible'
+}
+
+function addLoader3() {
+    document.getElementById('loader3').style.visibility = 'visible'
+}
+
+function addLoader4() {
+    document.getElementById('loader4').style.visibility = 'visible'
+}
+
+function addLoader5() {
+    document.getElementById('loader5').style.visibility = 'visible'
+}
+
+function addLoader6() {
+    document.getElementById('loader6').style.visibility = 'visible'
+}
+
 function showRecipesTOP10() {
     let list = document.getElementById('showRecipes').contentDocument.firstChild.textContent;
     if (list) {
@@ -454,27 +477,21 @@ function showRecipesTOP10() {
         let table = document.createElement('table')
         let tbody = document.createElement('tbody')
 
-        if (json[0].id == "") {
-            let tr = document.createElement('tr')
-            let td = document.createElement('td')
-            td.textContent = "theres no recipes to you"
-            tr.appendChild(td);
-            tbody.appendChild(tr)
-        } else {
-            let tr = document.createElement('tr')
-            let td1 = document.createElement('td')
-            td1.textContent = "Id"
-            let td2 = document.createElement('td')
-            td2.textContent = "Name"
-            let td3 = document.createElement('td')
-            td3.textContent = "Amount"
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-            tr.appendChild(td3)
-            tbody.appendChild(tr)
+        try {
             if (json[0].id != "") {
+                let tr = document.createElement('tr')
+                let td1 = document.createElement('td')
+                td1.textContent = "Id"
+                let td2 = document.createElement('td')
+                td2.textContent = "Name"
+                let td3 = document.createElement('td')
+                td3.textContent = "Count"
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tbody.appendChild(tr)
                 for (let i = 0; i < json.length; i++) {
-                    let arr = [json[i].idrecipe, json[i].name,json[i].energy]
+                    let arr = [json[i].idrecipe, json[i].name, json[i].energy]
                     let tr = document.createElement('tr')
                     for (let j = 0; j < arr.length; j++) {
                         let td = document.createElement('td')
@@ -484,11 +501,19 @@ function showRecipesTOP10() {
                     tbody.appendChild(tr)
                 }
             }
+        } catch {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "There are no recipes for you!"
+            tr.appendChild(td);
+            tbody.appendChild(tr)
         }
         table.appendChild(tbody)
         container.appendChild(table)
         table.setAttribute("border", "1")
         table.style.fontFamily = "Comic Sans MS"
         document.getElementById('showRecipes').style.visibility = 'hidden'
+        document.getElementById('loader1').style.visibility = 'hidden'
+
     }
 }

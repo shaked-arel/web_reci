@@ -14,10 +14,10 @@
 <div class="tab">
     <button class="tablink fa fa-fw fa-home" onclick="openPage('Home', this, '#26a69a')" id="defaultOpen"></button>
     <form action="getFavorites" method="get" target="resultF">
-        <button class="tablink fa fa-fw fa-heart" onclick="openPage('Favorites', this, '#26a69a')"></button>
+        <button class="tablink fa fa-fw fa-heart" onclick="openPage('Favorites', this, '#26a69a');addLoader5()"></button>
     </form>
     <form action="getRecommended" method="get" target="result">
-        <button class="tablink fa fa-fw fa-star" onclick="openPage('Recommended', this, '#26a69a')"></button>
+        <button class="tablink fa fa-fw fa-star" onclick="openPage('Recommended', this, '#26a69a');addLoader6()"></button>
     </form>
     <button class="tablink font" onclick="openPage('Top10',this, '#26a69a')"> 10</button>
     <button class="tablink fa fa-fw fa-user" onclick="openPage('User',this, '#26a69a')"></button>
@@ -49,11 +49,14 @@
                 </div>
                 <div class="input-group-btn input-group-append">
                     <div style="text-align: center">
-                        <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                        <input role="button" onclick="addLoader2()" class="btn btn-primary" style="margin-top: 45px;" type="submit">
                     </div>
                 </div>
             </form>
             <div style="width:70%; height:600px; overflow:auto; alignment: right">
+                <div class="center">
+                    <div id="loader2" class="loader"  style="visibility:hidden"></div>
+                </div>
                 <div class="resS">
                     <p id="containerSN" align="center"></p>
                     <iframe name="resultSearchN" id="resultSearchN" onload="showTableSearchN()"
@@ -82,10 +85,13 @@
                 </div>
                 <div class="input-group-btn input-group-append">
                     <div style="text-align: center">
-                        <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                        <input role="button" onclick="addLoader3()" class="btn btn-primary" style="margin-top: 45px;" type="submit">
                     </div>
                 </div>
             </form>
+            <div class="center">
+                <div id="loader3" class="loader"  style="visibility:hidden"></div>
+            </div>
             <div style="width:70%; height:600px; overflow:auto; alignment: right">
                 <div class="resS">
                     <p id="containerSU" align="center"></p>
@@ -169,10 +175,13 @@
                 </div>
                 <div class="input-group-btn input-group-append">
                     <div style="text-align: center">
-                        <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                        <input role="button" onclick="addLoader4()" class="btn btn-primary" style="margin-top: 45px;" type="submit">
                     </div>
                 </div>
             </form>
+            <div class="center">
+                <div id="loader4" class="loader"  style="visibility:hidden"></div>
+            </div>
             <div style="width:70%; height:600px; overflow:auto; alignment: right">
                 <div class="resS">
                     <p id="containerSP" align="center"></p>
@@ -218,6 +227,9 @@
          style="margin-top:50px; padding-bottom:30px; border-top:2px solid #26a69a; border-bottom:2px solid #26a69a; padding-top:15px;">
         <h3>Recommended</h3>
         <p>These are the highest-rated recipes</p>
+        <div class="center">
+            <div id="loader6" class="loader"  style="visibility:hidden"></div>
+        </div>
         <div style="width:70%; height:90%; overflow:auto; alignment:right">
             <div class="res">
                 <p id="container" align="center"></p>
@@ -237,7 +249,9 @@
          style="margin-top:50px; padding-bottom:30px; border-top:2px solid #26a69a; border-bottom:2px solid #26a69a; padding-top:15px;">
         <h3>Favorites</h3>
         <p>These are your favorite recipes</p>
-
+        <div class="center">
+            <div id="loader5" class="loader"  style="visibility:hidden"></div>
+        </div>
         <div style="width:70%; height:90%; overflow:auto; alignment:right">
             <div class="resF">
                 <p id="containerF" align="center"></p>
@@ -264,7 +278,7 @@
                         <option value="first"></option>
                         <option value="calories">Calories</option>
                         <option value="fat"> Fat</option>
-                        <option value="sat-fat">Sat-fat</option>
+                        <option value="sat_fat">Sat-fat</option>
                         <option value="protein">Protein</option>
                         <option value="fiber">Fiber</option>
                         <option value="carbs">Carbs</option>
@@ -279,11 +293,14 @@
                 </div>
                 <div class="input-group-btn input-group-append">
                     <div style="text-align: center">
-                        <input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit">
+                        <input role="button" onclick="addLoader1()" class="btn btn-primary" style="margin-top: 45px;" type="submit">
                     </div>
                 </div>
             </div>
         </form>
+        <div class="center">
+        <div id="loader1" class="loader"  style="visibility:hidden"></div>
+        </div>
         <div class="resS">
             <p id="containerR" align="center"></p>
             <iframe name="showRecipes" id="showRecipes" onload="showRecipesTOP10()" style="border:none"></iframe>
