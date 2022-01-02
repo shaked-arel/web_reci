@@ -126,7 +126,7 @@ let findTop10 = (nutrition, lowOrHigh) => {
     if(nutrition.localeCompare("sat-fat")==0){
         nutrition="sat_fat"
     }
-    const getTop10 = "SELECT idrecipe,name,energy FROM (SELECT idrecipe , sum("+nutrition+"*amount) as energy FROM product_in_recipe,product WHERE( product.idproduct= product_in_recipe.idproduct) GROUP BY(idrecipe) ORDER BY energy "+desc+" LIMIT 10) As rc,recipe WHERE(rc.idrecipe=recipe.id)";
+    const getTop10 ="SELECT a.idrecipe,b.name,a.energy FROM (SELECT idrecipe , sum("+nutrition+"*amount) as energy FROM product_in_recipe,product WHERE(product.idproduct= product_in_recipe.idproduct) GROUP BY(idrecipe) )a, recipe b Where a.idrecipe = b.id Order BY energy "+desc+" LIMIT 10";
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
