@@ -21,7 +21,7 @@
     <form action="getRecommended" method="get" target="result">
         <button class="tablink fa fa-fw fa-star" onclick="openPage('Recommended', this, '#26a69a');addLoader6()"></button>
     </form>
-    <form action="getAboveAverage" method="get" target="result">
+    <form action="getAboveAverage" method="get" target="resultA">
         <button class="tablink fas fa-sort-amount-up" onclick="openPage('AboveAverage', this, '#26a69a');addLoader7()"></button>
     </form>
     <button class="tablink font" onclick="openPage('Top10',this, '#26a69a')"> 10</button>
@@ -332,7 +332,7 @@
         <div style="width:70%; height:90%; overflow:auto;">
             <div class="res">
                 <p id="containerA" align="center"></p>
-                <iframe name="resultA" id="resultA" onload="showTableA()" style="visibility: hidden"></iframe>
+                <iframe name="resultA" id="resultA" onload="showTableA()" style="visibility: visible"></iframe>
             </div>
         </div>
     </div>

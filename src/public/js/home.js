@@ -204,6 +204,8 @@ function showUser(name) {
 }
 function showTableA() {
     let list = document.getElementById('resultA').contentDocument.firstChild.textContent;
+    console.log(list)
+
     if (list) {
         let json = JSON.parse(list)
         let container = document.getElementById('containerA')
@@ -219,9 +221,7 @@ function showTableA() {
                 td2.textContent = "Name"
                 tr.appendChild(td1)
                 tr.appendChild(td2)
-
                 tbody.appendChild(tr)
-
                 for (let i = 0; i < json.length; i++) {
                     let arr = [json[i].id, json[i].name]
                     let tr = document.createElement('tr')
