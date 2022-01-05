@@ -92,6 +92,18 @@ let findTop10 = async (req, res) => {
     }
 }
 
+let findRecipeAboveAvg = async(req, res) =>{
+    try {
+        await searchService.findRecipeAboveAvg(req.user.iduser).then(async (rows) => {
+            let ans = JSON.stringify(rows);
+            return res.send(rename(ans));
+        });
+    } catch (err) {
+        req.flash("errors", err);
+        return res.redirect("/login");
+    }
+}
+
 let idrec;
 let rate;
 
@@ -159,4 +171,5 @@ module.exports = {
     getRecipeById: getRecipeById,
     setRate: setRate,
     deleteRate: deleteRate,
+    findRecipeAboveAvg: findRecipeAboveAvg,
 };

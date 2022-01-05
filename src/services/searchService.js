@@ -20,12 +20,13 @@ let findRecipeByName = (str) => {
 };
 
 let findRecipeByIngredients = (prod,UsedNotUsed) => {
-    let used_not_used = "not";
-    if (UsedNotUsed.localeCompare("on") == 0) {
-        used_not_used = ""
+    let findRecipeByIng = "SELECT distinct id,name FROM recipe, product_in_recipe, product WHERE( recipe.id = product_in_recipe.idrecipe AND product.idproduct = product_in_recipe.idproduct AND  (food LIKE '% "+prod+" %' OR food LIKE '% "+prod+"' OR food LIKE '"+prod+" %' OR food LIKE '"+prod+"')) order by id";
+    if (UsedNotUsed.localeCompare("on") != 0) {
+        console.log("i am heree")
+        findRecipeByIng = "SELECT id, name FROM recipe WHERE (id not IN( SELECT distinct id FROM recipe, product_in_recipe, product WHERE( recipe.id = product_in_recipe.idrecipe AND product.idproduct = product_in_recipe.idproduct AND(food LIKE '% "+prod+" %' OR food LIKE '% "+prod+"' OR food LIKE '"+prod+" %' OR food LIKE '"+prod+"')) order by id)) LIMIT 30"
     }
-    const findRecipeByIng = "SELECT id,name FROM recipe WHERE (id "+used_not_used+" IN (SELECT distinct idrecipe FROM product_in_recipe WHERE( idproduct IN (SELECT idproduct FROM product WHERE( food LIKE '% " + prod + " %' OR food LIKE '% " + prod + "' OR food LIKE '" + prod + " %' OR food LIKE '" + prod + "')))))LIMIT 30";
-    return new Promise((resolve, reject) => {
+    console.log(findRecipeByIng)
+      return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 findRecipeByIng,
@@ -185,6 +186,27 @@ let setRate = (iduser, idrec, rate) => {
     });
 };
 
+let findRecipeAboveAvg = (iduser)=>{
+    const AboveAvg ="SELECT id, name FROM recipe, rate_by_user,(SELECT idrecipe, avg(rate) as AVGrate FROM rate_by_user Group by (idrecipe)) AS average Where (recipe.id=rate_by_user.idrecipe AND iduser = "+iduser+"  AND rate_by_user.idrecipe = average.idrecipe AND rate_by_user.rate > average.AVGrate)"
+    console.log(AboveAvg);
+    return new Promise((resolve, reject) => {
+        try {
+            DBConnection.query(
+                AboveAvg,
+                function (err, rows) {
+                    if (err) {
+                        reject(err)
+                    }
+                    console.log(rows);
+                    resolve(rows);
+                }
+            );
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
 let getRecipeRate = (idrec) => {
     const updateRate = "SELECT AVG(rate) as rating FROM rate_by_user WHERE(idrecipe="+idrec+")";
     return new Promise((resolve, reject) => {
@@ -235,4 +257,5 @@ module.exports = {
     setRate: setRate,
     getRecipeRate: getRecipeRate,
     deleteRate: deleteRate,
+    findRecipeAboveAvg: findRecipeAboveAvg,
 };

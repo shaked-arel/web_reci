@@ -33,6 +33,7 @@ let initWebRoutes = (app) => {
     router.post("/searchByName", searchController.findRecipeByName);
     router.post("/searchByIng",searchController.findRecipeByIngredients);
     router.get("/getFavorites", searchController.getMyFavorites);
+    router.get("/getAboveAverage", searchController.findRecipeAboveAvg);
     router.get("/getRecommended",searchController.getRecommended);
     router.post("/searchByNut", searchController.findByNutr);
     router.post("/getTop10", searchController.findTop10);
