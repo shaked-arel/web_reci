@@ -202,6 +202,55 @@ function showUser(name) {
         document.getElementsByClassName("true").style.display = "block";
     }
 }
+function showTableA() {
+    let list = document.getElementById('resultA').contentDocument.firstChild.textContent;
+    if (list) {
+        let json = JSON.parse(list)
+        let container = document.getElementById('containerA')
+        container.innerHTML = ""
+        let table = document.createElement('table')
+        let tbody = document.createElement('tbody')
+        try {
+            if (json[0].id != "") {
+                let tr = document.createElement('tr')
+                let td1 = document.createElement('td')
+                td1.textContent = "Id"
+                let td2 = document.createElement('td')
+                td2.textContent = "Name"
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+
+                tbody.appendChild(tr)
+
+                for (let i = 0; i < json.length; i++) {
+                    let arr = [json[i].id, json[i].name]
+                    let tr = document.createElement('tr')
+                    for (let j = 0; j < arr.length; j++) {
+                        let td = document.createElement('td')
+                        var p = document.createElement('p');
+                        p.textContent = arr[j];
+                        td.appendChild(p);
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr)
+                }
+            }
+        } catch {
+            let tr = document.createElement('tr')
+            let td = document.createElement('td')
+            td.textContent = "There are no recipes for you! try rate more recipes"
+            tr.appendChild(td);
+            tbody.appendChild(tr)
+        }
+        table.appendChild(tbody)
+        table.id = "table";
+        container.appendChild(table)
+        table.setAttribute("border", "1")
+        table.style.fontFamily = "Comic Sans MS"
+        document.getElementById('resultA').style.visibility = 'hidden'
+        document.getElementById('loader7').style.visibility = 'hidden'
+    }
+}
 
 
 function showTableF() {
@@ -252,7 +301,6 @@ function showTableF() {
         document.getElementById('result').style.visibility = 'hidden'
         document.getElementById('loader5').style.visibility = 'hidden'
     }
-
 }
 
 function showTable() {
@@ -468,6 +516,9 @@ function addLoader6() {
     document.getElementById('loader6').style.visibility = 'visible'
 }
 
+function addLoader7() {
+    document.getElementById('loader7').style.visibility = 'visible'
+}
 function showRecipesTOP10() {
     let list = document.getElementById('showRecipes').contentDocument.firstChild.textContent;
     if (list) {
